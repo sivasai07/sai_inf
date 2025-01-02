@@ -54,4 +54,4 @@ This Spring Boot application provides a platform for athletes, coaches, and admi
 
 **Contact:**
 
-For any questions or feedback, please contact Gokul Thakral at gokulthakral@gmail.com.
+For any questions or feedback, please contact Gokul Thakral at divasai05@gmail.com.
