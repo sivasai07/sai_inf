@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request and message coaches</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+         :root {
+             --primary-color: #0077be;
+             --secondary-color: #ffa500;
+             --background-dark: #121212;
+             --text-light: #f4f4f4;
+             --gradient-primary: linear-gradient(135deg, #eaecdb 0%, #fdd007 100%);
+         }
+
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Poppins', sans-serif;
+         }
+
+         body {
+             background: rgb(16,16,18);
+             background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+             color: var(--text-light);
+             line-height: 1.6;
+             overflow-x: hidden;
+         }
+         .navbar {
+             background-color: #121212;
+             padding: 1rem 2rem;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             position: fixed;
+             top: 0;
+             width: 100%;
+             z-index: 1000;
+             transition: background-color 0.3s ease;
+             backdrop-filter: blur(10px);
+             
+         }
+
+         .logo {
+            color:#ffa500;
+             font-size: 1.8rem;
+             font-weight: bold;
+             text-transform: uppercase;
+             letter-spacing: 2px;
+         }
+         .loo2-logo {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-family: 'Poppins', sans-serif;
+             font-size: 2rem;
+             font-weight: 700;
+             text-transform: uppercase;
+             background:white;
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+         }
+
+         .loo2-icon {
+             width: 50px;
+             height: 50px;
+             background: var(--gradient-light);
+             border-radius: 50%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             margin-right: 10px;
+         }
+
+         .loo2-icon img {
+             width: 70%;
+             height: 70%;
+         }
+
+         .nav-links {
+             display: flex;
+             list-style: none;
+             gap: 20px;
+         }
+
+         .nav-links li {
+             position: relative;
+         }
+
+         .nav-links a {
+             color: var(--text-light);
+             text-decoration: none;
+             font-weight: 500;
+             transition: all 0.3s ease;
+             position: relative;
+             padding-bottom: 5px;
+             margin-right: 20px;
+         }
+
+         .nav-links a::after {
+             content: '';
+             position: absolute;
+             width: 0;
+             height: 2px;
+             bottom: 0;
+             left: 0;
+             background: var(--gradient-primary);
+             transition: width 0.3s ease;
+         }
+
+         .nav-links a:hover::after {
+             width: 100%;
+         }
+
+         .nav-links a:hover {
+             color: var(--secondary-color);
+             transform: translateY(-3px);
+         }
+
+         .dropdown {
+             position: relative;
+         }
+
+         .dropdown-content {
+             display: none;
+             position: absolute;
+             background-color: rgba(30, 30, 30, 0.9);
+             min-width: 200px;
+             box-shadow: 0 8px 16px #ffa500;(0,0,0,0.2);
+             z-index: 1;
+             top: 100%;
+             left: 0;
+             border-radius: 8px;
+             overflow: hidden;
+             backdrop-filter: blur(10px);
+         }
+
+         .dropdown:hover .dropdown-content {
+             display: block;
+             animation: dropdownSlideIn 0.3s ease;
+         }
+
+         .dropdown-content a {
+             color: var(--text-light);
+             padding: 12px 16px;
+             text-decoration: none;
+             display: block;
+             transition: background-color 0.3s ease;
+         }
+
+         .dropdown-content a:hover {
+             background-color: rgba(50, 50, 50, 0.9);
+             color: var(--secondary-color);
+         }
+
+         .container {
+           margin: 50px;
+           padding: 50px;
+           text-align: center;
+           margin-top:100px;
+         }
+
+         h1 {
+           margin-bottom: 20px;
+           color: #ffa500;
+         }
+             h2 {
+           text-align: centre;
+         }
+       /* General Container Styling */
+#coach-container {  
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 16px;
+    width: 85%;
+    max-width: 1200px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    margin: 40px auto;
+    margin-top: 120px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 30px;
+    color: #ff9800;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Coaches List */
+#coach-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.coach-card {
+    background: linear-gradient(145deg, #292929, #1a1a1a);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    width: 260px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.coach-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.coach-card h3 {
+    font-size: 24px;
+    color: #ff9800;
+    margin-bottom: 10px;
+}
+
+.coach-card p {
+    font-size: 15px;
+    color: #d4d4d4;
+    margin-bottom: 15px;
+}
+
+.coach-card button {
+    padding: 12px 24px;
+    background: #28a745;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.coach-card button:hover {
+    background: #218838;
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #2c2c2c;
+    padding: 30px;
+    border-radius: 16px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.popup-content .close {
+    font-size: 30px;
+    color: #ff9800;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.popup-content .close:hover {
+    color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    margin: 15px 0;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #ff9800;
+    box-shadow: 0 0 5px rgba(255, 152, 0, 0.6);
+}
+
+button[type="submit"], .secondary-btn {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"] {
+    background: #007bff;
+    color: #fff;
+}
+
+button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+.secondary-btn {
+    background: #444;
+    color: #e0e0e0;
+    margin-top: 10px;
+}
+
+.secondary-btn:hover {
+    background: #555;
+}
+
+/* Notifications List */
+#notifications-list, #replied-list {
+    margin: 30px auto;
+    width: 85%;
+    max-width: 1200px;
+}
+
+.notification-card {
+    background: #333;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 16px;
+    max-width: 6%;
+    align-items: center;
+}
+hr {
+    width: 100%; /* Adjust the width as desired */
+    margin: 20px auto; /* Center the line with auto margins */
+    border: none; /* Remove default border style */
+    border-top: 2px solid #ff9800;
+    align-items: flex-start; /* Add a custom color and thickness */
+}
+.coach-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .coach-card h4 {
+            margin: 0 0 10px;
+        }
+
+        .coach-card p {
+            margin: 5px 0;
+        }
+
+        .coach-card button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .coach-card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: black;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            color: white;
+        }
+
+        .popup textarea {
+            width: 100%;
+            height: 100px;
+            color: white;
+        }
+
+        .popup button {
+            margin-top: 10px;
+        }
+        .messages-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.messages-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.message-item {
+    background-color: black;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color:white;
+    text-align: left;
+}
+
+.message-item strong {
+    display: block;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.message-item em {
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo" id="userDetails">Athletes</div>
+
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a href="athlete.html">Home</a>
+        </li>
+        <li class="dropdown">
+            <a href="#news">News</a>
+            <div class="dropdown-content">
+                <a href="Allatest-news.html">Latest News</a>
+                <a href="trending.html">Trending</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="athleteeventregistration.html">Upcoming Events</a>
+                <a href="athleteongoingevents.html">Ongoing Events</a>
+                <a href="Allpast-events.html">Completed Events</a>
+            </div>
+        </li>
+        <li><a href="athleteresults.html">Results</a></li>
+        <li><a href="athletecoaches.html">Coaches</a></li>
+        <a href="athleteprofile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="athletenotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </ul>
+</header>
+<div class="container">
+<h2>Coaches List</h2>
+    <div id="coach-list"></div>
+
+    <!-- Popup for sending notification -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3>Send Notification</h3>
+            <p id="remarks"></p>
+            <textarea id="notification-message" placeholder="Type a small notify here..."></textarea>
+            <button id="send-notify-btn">Send Notification</button>
+            <button id="close-popup-btn">Close</button>
+        </div>
+    </div>
+
+    <div id="messagesContainer" class="messages-container">
+        <h2>Recent notify</h2>
+        <ul id="messagesList" class="messages-list"></ul>
+    </div>
+    
+
+</div>
+
+
+</body>
+</html>
+<script src="tokens.js"></script>
+<script src="athleteauth.js"></script>
+
+<script>
+    let sessionCheckInterval; // Variable to store the interval
+
+// Enhanced logout function
+function logout() {
+    // Clear all storage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Clear the interval if it exists
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+
+    // Redirect to login page
+    window.location.href = 'index.html';
+}
+// Select popup and buttons
+const popup = document.getElementById("popup");
+const closePopupBtn = document.getElementById("close-popup-btn");
+
+// Function to show the popup
+function showPopup() {
+    popup.style.display = "flex"; // Show popup with flexbox centering
+}
+
+// Function to close the popup
+function closePopup() {
+    popup.style.display = "none";
+}
+
+// Add event listener to the close button
+closePopupBtn.addEventListener("click", closePopup);
+
+// Example usage (you can trigger `showPopup()` when needed)
+document.getElementById("send-notify-btn").addEventListener("click", () => {
+    alert("Notification sent!");
+    closePopup(); // Close popup after sending notification
+});
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}const BASE_URL = "http://localhost:8080/api/coaches"; 
+const ASSISTANCE_API_URL = "http://localhost:8080/api/assistance-requests";
+const NOTIFICATIONS_API_URL = "http://localhost:8080/api/coach_notifications";
+
+// Function to load all coaches
+function loadCoaches() {
+    const coachListContainer = document.getElementById("coach-list");
+    coachListContainer.innerHTML = "";
+
+    const athleteId = localStorage.getItem("athleteId");
+
+    fetch(BASE_URL)
+        .then((response) => response.json())
+        .then((coaches) => {
+            coaches.forEach((coach) => {
+                const coachCard = document.createElement("div");
+                coachCard.classList.add("coach-card");
+
+                fetch(`${ASSISTANCE_API_URL}/exists?athleteId=${athleteId}&coachId=${coach.coachId}`)
+                    .then((response) => response.json())
+                    .then((exists) => {
+                        let actionButton;
+
+                        if (exists) {
+                            fetch(`${ASSISTANCE_API_URL}/status?athleteId=${athleteId}&coachId=${coach.coachId}`)
+                                .then((response) => response.text())
+                                .then((status) => {
+                                    if (status === "ACCEPTED") {
+                                        actionButton = `<button id="popup-btn-${coach.coachId}" onclick="openPopup(${coach.coachId})">View Remarks</button>`;
+                                    } else {
+                                        actionButton = `<button id="check-status-btn-${coach.coachId}" onclick="checkStatus(${coach.coachId})">Check Status</button>`;
+                                    }
+
+                                    coachCard.innerHTML = `
+                                        <h4>${coach.firstName} ${coach.lastName}</h4>
+                                        <p>Category: ${coach.category}</p>
+                                        ${actionButton}
+                                    `;
+                                    coachListContainer.appendChild(coachCard);
+                                });
+                        } else {
+                            actionButton = `<button id="request-btn-${coach.coachId}" onclick="handleRequest(${coach.coachId})">Request</button>`;
+                            coachCard.innerHTML = `
+                                <h4>${coach.firstName} ${coach.lastName}</h4>
+                                <p>Category: ${coach.category}</p>
+                                ${actionButton}
+                            `;
+                            coachListContainer.appendChild(coachCard);
+                        }
+                    })
+                    .catch((error) => console.error("Error checking request status:", error));
+            });
+        })
+        .catch((error) => console.error("Error loading coaches:", error));
+}
+
+// Function to check the status of a request
+function checkStatus(coachId) {
+    const athleteId = localStorage.getItem("athleteId");
+
+    fetch(`${ASSISTANCE_API_URL}/status?athleteId=${athleteId}&coachId=${coachId}`)
+        .then((response) => response.text())
+        .then((status) => {
+            alert(`The status of your request is: ${status}`);
+        })
+        .catch((error) => console.error("Error checking status:", error));
+}
+
+// Function to handle a request
+function handleRequest(coachId, newMessage) {
+    const athleteId = localStorage.getItem("athleteId");
+
+    // Sending the notification request to the API
+    fetch(`${ASSISTANCE_API_URL}/create?athleteId=${athleteId}&coachId=${coachId}`, { method: "POST" })
+        .then((response) => response.json())
+        .then(() => {
+            alert("Request has been sent.");
+           
+        })
+        .catch((error) => console.error("Error creating assistance request:", error));
+};
+
+
+
+// Function to open the popup and display remarks and send notification
+function openPopup(coachId) {
+    const athleteId = localStorage.getItem("athleteId");
+
+    if (!athleteId) {
+        console.error("Athlete ID is missing in localStorage.");
+        alert("Unable to retrieve athlete ID.");
+        return;
+    }
+
+    // Fetch the remarks and notifications
+    fetch(`${ASSISTANCE_API_URL}/athlete/${athleteId}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch notifications.");
+            }
+            return response.json();
+        })
+        .then((notifications) => {
+            const notification = notifications.find(n => n.coachId === coachId);
+
+            const remarksElement = document.getElementById("remarks");
+            if (remarksElement) {
+                remarksElement.innerText = `Coach's Remarks: ${notification.remarks || "No remarks available"}`;
+            } 
+            // Show popup
+            const popupElement = document.getElementById("popup");
+            if (popupElement) {
+                popupElement.style.display = "flex";
+            }
+
+            const sendNotifyBtn = document.getElementById("send-notify-btn");
+            if (sendNotifyBtn) {
+                sendNotifyBtn.onclick = () => sendNotification(athleteId, coachId);
+            }
+        })
+        .catch((error) => console.error("Error fetching notifications:", error));
+}
+
+// Function to send notification
+function sendNotification(athleteId, coachId) {
+    const messageElement = document.getElementById("notification-message");
+    if (!messageElement) {
+        console.error("Notification message input is missing.");
+        return;
+    }
+
+    const message = messageElement.value;
+
+    if (!message) {
+        alert("Please enter a message.");
+        return;
+    }
+
+    // Construct the URL with query parameters
+    const url = `${NOTIFICATIONS_API_URL}/create?athleteId=${athleteId}&coachId=${coachId}&message=${encodeURIComponent(message)}`;
+
+    fetch(url, {
+        method: "POST",
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to send notification.");
+            }
+            return response.json();
+        })
+        .then((notification) => {
+            alert("Notification sent successfully!");
+            closePopup();
+        })
+        .catch((error) => console.error("Error sending notification:", error));
+}
+
+// Function to close the popup
+function closePopup() {
+    const popupElement = document.getElementById("popup");
+    if (popupElement) {
+        popupElement.style.display = "none";
+    }
+}
+async function fetchRecentMessages(athleteId) {
+    const url = `${NOTIFICATIONS_API_URL}/athlete/${athleteId}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Failed to fetch messages.");
+        }
+
+        const notifications = await response.json();
+
+        // Filter messages with non-empty replies and sort by ID (or timestamp if available)
+        const validNotifications = notifications
+            .filter(notification => notification.coachReply) // Only non-empty replies
+            .slice(-3); // Get the last three messages
+
+        displayMessages(validNotifications);
+    } catch (error) {
+        console.error("Error fetching messages:", error);
+    }
+}
+
+async function displayMessages(messages) {
+    const messagesList = document.getElementById("messagesList");
+    messagesList.innerHTML = ""; // Clear the list before displaying
+
+    for (const messagess of messages) {
+        const coachName = await fetchCoachName(messagess.coachId);
+
+        const listItem = document.createElement("li");
+        listItem.className = "messagess-item";
+        listItem.innerHTML = `
+            <strong>Coach: ${coachName}</strong><br>
+            <strong>question:</strong> ${messagess.message}
+            <br>
+            <strong>notify:</strong> ${messagess.coachReply}
+        `;
+        messagesList.appendChild(listItem);
+    }
+}
+
+async function fetchCoachName(coachId) {
+    const url = `http://localhost:8080/api/coaches/${coachId}`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Failed to fetch coach name.");
+        }
+        const coach = await response.json();
+        return coach.username || "Unknown Coach";
+    } catch (error) {
+        console.error("Error fetching coach name:", error);
+        return "Unknown Coach";
+    }
+}
+
+// Example usage (replace with actual athleteId)
+document.addEventListener("DOMContentLoaded", () => {
+    const athleteId = localStorage.getItem("athleteId");
+    if (athleteId) {
+        fetchRecentMessages(athleteId);
+    } else {
+        console.error("Athlete ID not found.");
+    }
+});
+
+// Initialize coaches on page load
+window.onload = loadCoaches;
+
+</script>
+</body>
+</html>
