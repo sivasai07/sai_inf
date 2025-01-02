@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publish Results</title>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <style>
+:root {
+--primary-color: #0077be;
+--secondary-color: #00a86b;
+--background-dark: #121212;
+--text-light: #f4f4f4;
+--gradient-primary: linear-gradient(135deg, #0077be 0%, #00a86b 100%);
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background: rgb(16,16,18);
+background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+background-size: cover;
+color: white;
+}
+
+.event-text{
+margin: 40px;
+max-width: 400%;
+font-size: 100px;
+padding: 10px;
+font-size: large;
+text-align: center;
+color: white;
+}
+/* Custom Navbar Styling */
+nav {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    nav .brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffa500;
+    }
+
+    nav .nav-links a {
+        text-decoration: none;
+        margin: 0 15px;
+        color: #ffffff;
+        transition: color 0.3s ease;
+    }
+
+    nav .nav-links a:hover {
+        color: #ffa500;
+    }
+
+    nav .nav-links a.active {
+        font-weight: bold;
+    }
+      .navbar {
+    color: white;
+    background-color: rgba(18, 18, 18, 0.9);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin-right: 40px;
+
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.logo {
+    color: var(--text-light);
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+
+.dropdown {
+    position: relative;
+    left: -4em;
+    margin-left: 40px;
+    margin-right:-60px ;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(30, 30, 30, 0.9);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdownSlideIn 0.3s ease;
+}
+
+.dropdown-content a {
+    color: var(--text-light);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: var(--secondary-color);
+}
+@keyframes dropdownSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }/* Overlay for better readability */
+    .overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    .container {
+      margin-top: 100px;
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #fff;
+      text-align: center;
+    }
+
+    .btn {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">Admin</div>
+    <div class="nav-links">
+        <a href="admindasboard.html">Home</a>
+        <a href="admin-news.html">News</a>
+        <br>
+       
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="admin-upcomingevents.html">Upcoming Events</a>
+                <a href="admin-ongoingevents.html">Ongoing Events</a>
+                <a href="admin-Allpast-events.html">Past Events</a>
+            </div>
+        </li>     
+       <a href="admin-Resultss.html">Results</a>
+        <a href="admin-coaches.html">Coaches</a>
+        <a href="adminathletes.html">Athletes</a>
+        <a href="AdminProfile.html">Profile</a>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+      </div>
+</nav>
+
+<div class="container">
+  <h2 class="text-center">Completed Events</h2>
+  <table id="completedEventsTable">
+    <thead>
+    <tr>
+      <th>Event ID</th>
+      <th>Event Title</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Event rows will be loaded here dynamically -->
+    </tbody>
+  </table>
+
+  <div id="publishSection" style="display: none; margin-top: 30px;">
+    <h3 class="text-center">Publish Results for <span id="eventTitle"></span></h3>
+    <table id="athletesTable">
+      <thead>
+      <tr>
+        <th>Athlete ID</th>
+        <th>Athlete Name</th>
+        <th>Score</th>
+        <th>Remarks</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Athlete rows will be loaded here dynamically -->
+      </tbody>
+    </table>
+    <button class="btn btn-primary w-100" id="publishButton">Publish</button>
+  </div>
+</div>
+
+<script src="tokens.js"></script>
+
+<script>
+ 
+// Logout function
+let sessionCheckInterval; // Variable to store the interval
+
+// Enhanced logout function
+function logout() {
+    // Clear all storage
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Clear the interval if it exists
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+    
+    // Redirect to login page
+    window.location.href = 'index.html';
+}
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load completed events on page load
+  await loadCompletedEvents();
+});
+
+async function loadCompletedEvents() {
+  try {
+    const response = await fetch('http://localhost:8080/api/events/list');
+    if (!response.ok) {
+      throw new Error('Failed to load events');
+    }
+
+    const events = await response.json();
+    const completedEvents = events.filter(event => {
+      const eventDateTime = new Date(`${event.eventDate}T${event.eventTime}`);
+      return eventDateTime <= new Date();
+    });
+
+    const tableBody = document.getElementById('completedEventsTable').querySelector('tbody');
+    tableBody.innerHTML = '';
+
+    completedEvents.forEach(event => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${event.eventId}</td>
+        <td>${event.eventTitle}</td>
+        <td>
+          <button class="btn btn-success" onclick="loadAthletes(${event.eventId}, '${event.eventTitle}')">Publish Results</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error loading completed events:', error);
+  }
+}
+
+async function loadAthletes(eventId, eventTitle) {
+  try {
+    document.getElementById('eventTitle').textContent = eventTitle;
+
+    const response = await fetch(`http://localhost:8080/api/events/${eventId}/accepted-athletes`);
+    if (!response.ok) {
+      throw new Error('Failed to load athletes');
+    }
+
+    const athletes = await response.json();
+    const tableBody = document.getElementById('athletesTable').querySelector('tbody');
+    tableBody.innerHTML = ''; // Clear previous table content
+
+    for (const athlete of athletes) {
+      // Fetch the latest result (score and remarks) for this athlete and event
+      const existingResultResponse = await fetch(`http://localhost:8080/api/event-results/${eventId}/${athlete.athleteld}`);
+      const existingResult = existingResultResponse.ok ? await existingResultResponse.json() : null;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${athlete.athleteld}</td>
+        <td>${athlete.firstName} ${athlete.lastName}</td>
+        <td>
+          <input type="text" class="form-control" 
+                 data-athlete-id="${athlete.athleteld}" 
+                 value="${existingResult ? existingResult.score : ''}" 
+                 placeholder="Score">
+        </td>
+        <td>
+          <input type="text" class="form-control" 
+                 data-athlete-remarks-id="${athlete.athleteld}" 
+                 value="${existingResult ? existingResult.remarks : ''}" 
+                 placeholder="Remarks">
+        </td>
+      `;
+      tableBody.appendChild(row);
+    }
+
+    document.getElementById('publishSection').style.display = 'block';
+    document.getElementById('publishButton').onclick = () => publishResults(eventId, athletes);
+  } catch (error) {
+    console.error('Error loading athletes:', error);
+  }
+}
+
+async function publishResults(eventId, athletes) {
+  try {
+    const currentDate = new Date().toISOString();
+
+    const rows = document.querySelectorAll('#athletesTable tbody tr');
+    const results = Array.from(rows).map(row => {
+      const athleteId = parseInt(row.querySelector('[data-athlete-id]').getAttribute('data-athlete-id'));
+      let score = row.querySelector('[data-athlete-id]').value;
+      const remarks = row.querySelector('[data-athlete-remarks-id]').value;
+
+      // Convert score to an integer if not empty or NaN
+      score = score.trim() !== '' && !isNaN(parseInt(score)) ? parseInt(score) : null;
+
+      return { athleteId, eventId, score, remarks, publishedDate: currentDate };
+    });
+
+    // Separate results into those that need to be published and those that need to be updated
+    const resultsToPublish = [];
+    const resultsToUpdate = [];
+
+    for (const result of results) {
+      const response = await fetch(`http://localhost:8080/api/event-results/${result.eventId}/${result.athleteId}`);
+      const existingResult = response.ok ? await response.json() : null;
+
+      if (existingResult) {
+        // If result exists, prepare it for updating
+        resultsToUpdate.push(result);
+      } else {
+        // If result does not exist, prepare it for new publishing
+        resultsToPublish.push(result);
+      }
+    }
+
+    // Publish new results
+    if (resultsToPublish.length > 0) {
+      await fetch('http://localhost:8080/api/event-results/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(resultsToPublish),
+      });
+    }
+
+    // Update existing results with score and remarks
+    for (const result of resultsToUpdate) {
+      await fetch(`http://localhost:8080/api/event-results/update-score/${result.eventId}/${result.athleteId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          score: result.score,
+          remarks: result.remarks  // Send remarks as part of the request body
+        }),
+      });
+    }
+
+    alert('Results published/updated successfully!');
+    document.getElementById('publishSection').style.display = 'none';
+    document.getElementById('athletesTable').querySelector('tbody').innerHTML = '';
+  } catch (error) {
+    console.error('Error publishing results:', error);
+    alert(`Error: ${error.message}`);
+  }
+}
+
+
+
+</script>
+</body>
+</html>

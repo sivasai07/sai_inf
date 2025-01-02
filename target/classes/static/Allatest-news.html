@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0077be;
+            --secondary-color: #ffa500;
+            --background-dark: #121212;
+            --text-light: #f4f4f4;
+            --gradient-primary: linear-gradient(135deg, #eaecdb 0%, #fdd007 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: rgb(16,16,18);
+            background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+            
+
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .loo2-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background:white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loo2-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .loo2-icon img {
+            width: 70%;
+            height: 70%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+            margin-right: 20px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px #ffa500;(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+        /* ----------------------------------- */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent black */
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Blur effect for Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+  text-align: center;
+  color: #ffa500;(255, 255, 255, 0.9); /* Light text */
+
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+
+        }
+
+        .tab.active {
+           color: #4a90e2;
+            border-bottom: 2px solid #4a90e2;
+        }
+
+        .tab:hover {
+            color: rgb(83, 99, 240);
+
+        }
+
+        .table-container {
+            overflow-x: auto;
+
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent black */
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Blur effect for Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9); /* Light text */
+        }
+
+        table th,
+        table td {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+
+            font-weight: bold;
+        }
+
+        table tr:hover {
+            background-color: #d7dae4;
+            color: black;
+        }
+
+        h1{
+        text-align: center;
+        color: #ffa500;
+        margin-bottom: 25px;
+
+       }
+
+        /* -------------News section---------------------- */
+       .content-section{
+        position: relative;
+        top:8em;
+        margin-bottom: 5em;
+       }
+       .card h2{
+        text-align: center;
+       }
+
+       .content-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 0px;
+        }
+
+        .news-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .news-ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .news-ticker-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100%, 0);
+            }
+        }
+
+        .news-card-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 10px;
+            backdrop-filter: blur(10px);
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .news-card h3 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+
+        .news-card .date {
+            color: #aaa;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .news-card .summary {
+            line-height: 1.6;
+        }
+
+        /* Popup Text */
+    .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+        .logo {
+            color:#ffa500;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .popup-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .popup-buttons .yes-btn {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .popup-buttons .yes-btn:hover {
+            background: #218838;
+        }
+
+        .popup-buttons .no-btn {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .popup-buttons .no-btn:hover {
+            background: #c82333;
+        }
+                       /* New notification styles */
+  .notification-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .notification-link {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .notification-dot {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        display: block;
+        border: 2px solid rgba(18, 18, 18, 0.9);
+    }
+
+    .notification-dot.active {
+        display: block;
+    }
+
+    .notification-icon i {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        transition: color 0.3s ease;
+        margin-right: 5px;
+    }
+
+    .notification-icon:hover i {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo" id="userDetails">Athletes</div>
+
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a href="athlete.html">Home</a>
+        </li>
+        <li class="dropdown">
+            <a href="#news">News</a>
+            <div class="dropdown-content">
+                <a href="Allatest-news.html">Latest News</a>
+                <a href="trending.html">Trending</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="athleteeventregistration.html">Upcoming Events</a>
+                <a href="athleteongoingevents.html">Ongoing Events</a>
+                <a href="Allpast-events.html">Completed Events</a>
+            </div>
+        </li>
+        <li><a href="athleteresults.html">Results</a></li>
+        <li><a href="athletecoaches.html">Coaches</a></li>
+        <a href="athleteprofile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="athletenotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </ul>
+</header>
+<!-- Content Section -->
+<div class="content-section">
+    <h1>Latest News</h1>
+    <div class="news-card-section">
+        <div class="news-card">
+            <h3>BGT 2024-2025</h3>
+            <div class="date">December 08, 2024</div>
+            <p class="summary">Australia has the Upper hand over India in the Pink ball Test. Rishabh and Reddy has to save India to continue the lead in the Series.</p>
+        </div>
+
+        <div class="news-card">
+            <h3>Rising Star Joins National Team</h3>
+            <div class="date">November 28, 2024</div>
+            <p class="summary">Young prodigy Michael Rodriguez is selected to join the national swimming team after his breakthrough performances this season.</p>
+        </div>
+
+        <div class="news-card">
+            <h3>Training Technology Revolution</h3>
+            <div class="date">November 15, 2024</div>
+            <p class="summary">New AI-powered training systems are transforming athlete preparation, offering unprecedented insights into performance and injury prevention.</p>
+        </div>
+
+        <div class="news-card">
+            <h3>International Marathon Announced</h3>
+            <div class="date">November 10, 2024</div>
+            <p class="summary">The annual Global Marathon will take place in New York City, featuring top athletes from around the world competing for the prestigious title.</p>
+        </div>
+
+        <div class="news-card">
+            <h3>Women's Basketball Championship</h3>
+            <div class="date">November 5, 2024</div>
+            <p class="summary">The national women's basketball team clinches a historic victory in the international tournament, showcasing exceptional teamwork and skill.</p>
+        </div>
+        <div class="news-card">
+            <h3>Olympic Champion Sets New World Record</h3>
+            <div class="date">December 5, 2024</div>
+            <p class="summary">Sarah Johnson breaks the world record in the 400m sprint, stunning audiences with her incredible performance at the World Athletics Championships.</p>
+        </div>
+    </div>
+</div>
+
+<!-- News Ticker -->
+<div class="news-ticker">
+    <div class="news-ticker-content">
+        🏆 Sarah Johnson Breaks World Record | 🏊 Michael Rodriguez Joins National Team | 🤖 AI Training Systems Revolutionize Sports | 🏃 Global Marathon Announced | 🏀 Women's Basketball Team Wins Championship | 🚀 New Performance Tracking Technologies Unveiled | 🌟 Young Athletes Breaking Barriers Worldwide
+    </div>
+</div>
+
+<!-- Popup Message -->
+<!-- Logout Popup -->
+<div id="logoutPopup" class="popup">
+    <div class="popup-content">
+        <h3>Are you sure you want to logout?</h3>
+        <div class="popup-buttons">
+            <button class="yes-btn" id="yesBtn">Yes</button>
+            <button class="no-btn" id="noBtn">No</button>
+        </div>
+    </div>
+</div>
+<script src="tokens.js"></script>
+<script src="athleteauth.js"></script>
+
+<script>
+    
+    let sessionCheckInterval; // Variable to store the interval
+
+// Enhanced logout function
+function logout() {
+    // Clear all storage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Clear the interval if it exists
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+
+    // Redirect to login page
+    window.location.href = 'index.html';
+}
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}
+    const logoutLink = document.getElementById("logout");
+    const logoutPopup = document.getElementById("logoutPopup");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    // Show popup on logout click
+    logoutLink.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        logoutPopup.style.display = "flex"; // Show popup
+    });
+
+    // Redirect to logout page if "Yes" is clicked
+    yesBtn.addEventListener("click", () => {
+        window.location.href = "sporty.html"; // Change to your desired logout URL
+    });
+
+    // Close popup if "No" is clicked
+    noBtn.addEventListener("click", () => {
+        logoutPopup.style.display = "none"; // Hide popup
+    });
+// Fetch notifications for the athlete
+async function fetchNotifications() {
+try {
+    // Ensure athleteid is available
+    if (!athleteid) {
+        console.error('Athlete ID not available');
+        return;
+    }
+
+    const response = await fetch(`http://localhost:8080/api/notifications/athlete/${athleteid}`);
+
+    if (response.ok) {
+        const notifications = await response.json();
+        const notificationsList = document.getElementById('notifications-list');
+        const notificationDot = document.getElementById('notificationDot');
+
+        // Clear existing notifications
+        notificationsList.innerHTML = '';
+
+        // Check if there are new notifications
+        if (notifications.length > 0) {
+            // Show the dot
+            notificationDot.classList.add('active');
+
+            // Populate notifications
+            notifications.forEach(notification => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${notification.title}</strong>
+                    <p>${notification.message}</p>
+                    <small>${new Date(notification.timestamp).toLocaleString()}</small>
+                `;
+                notificationsList.appendChild(li);
+            });
+        } else {
+            // Hide the dot if no new notifications
+            notificationDot.classList.remove('active');
+
+            // Show a message when no notifications
+            notificationsList.innerHTML = `
+                <li class="no-notifications">
+                    No new notifications
+                </li>
+            `;
+        }
+    }
+} catch (error) {
+    console.error('Error fetching notifications:', error);
+}
+}
+async function checkNotifications() {
+try {
+    // Ensure athleteid is available before checking notifications
+    if (!athleteid) {
+        console.error('Athlete ID not available');
+        return;
+    }
+
+    const response = await fetch(`http://localhost:8080/api/notifications/athlete/${athleteid}/unread`);
+    if (response.ok) {
+        const unreadCount = await response.json();
+        const notificationDot = document.getElementById('notificationDot');
+
+        // Show/hide notification dot based on unread count
+        if (unreadCount > 0) {
+            notificationDot.classList.add('active');
+        } else {
+            notificationDot.classList.remove('active');
+        }
+    }
+} catch (error) {
+    console.error('Error checking notifications:', error);
+}
+}
+// Initialize notifications
+function initializeNotifications() {
+// Initial fetch of notifications
+fetchNotifications();
+
+// Initial check for unread notifications
+checkNotifications();
+
+// Periodic checks every 5 minutes
+setInterval(fetchNotifications, 5 * 60 * 1000);
+setInterval(checkNotifications, 5 * 60 * 1000);
+}
+
+// Modify the existing authentication success block
+if (checkAuthentication()) {
+// Existing code...
+fetchAthleteId(userId).then(() => {
+    // Start notification checking after athlete ID is fetched
+    if (athleteid) {
+        checkNotifications();
+
+        // Optional: Periodically check for notifications
+        setInterval(checkNotifications, 5 * 60 * 1000); // Every 5 minutes
+    }
+});
+}
+document.querySelector('.notification-icon a')?.addEventListener('click', async (e) => {
+try {
+    // Optionally mark all notifications as read when clicked
+    await fetch(`http://localhost:8080/api/notifications/athlete/${athleteid}/markAsRead`, {
+        method: 'POST'
+    });
+
+    // Remove the active dot
+    document.getElementById('notificationDot').classList.remove('active');
+} catch (error) {
+    console.error('Error marking notifications as read:', error);
+}
+});
+</script>
+</body>
+</html>

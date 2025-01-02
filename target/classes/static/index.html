@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Page</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: rgb(16,16,18);
+    background-image: url('imgrun.jpeg');
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    overflow: hidden;
+}
+
+        
+        header {
+    position: absolute;
+    top: 20px;
+    left: 89%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    background: rgba(37, 37, 37, 0.125);
+    padding: 10px 10px;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+header a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background-color: black;
+}
+
+header a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #2e2d2b; 
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+      .hidden {
+       display: none;
+}    
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    backdrop-filter: blur(50px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 40px;
+    transition: all 0.3s ease;
+}
+
+        .form {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .glass-container {
+            background-color:rgba(0, 0, 0, 0.7); /* Very transparent white background */
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            box-shadow: 0 4px 15px rgba(131, 124, 48, 0.2);
+            width: 800px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Slight white border */
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .input_box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input_box input {
+            width: 100%;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            padding: 0 15px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .input_box input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input_box input:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .input_box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input_box select {
+    width: 100%;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    appearance: none; /* Removes the default arrow in some browsers */
+    -webkit-appearance: none; /* Removes the default arrow in WebKit browsers */
+}
+
+.input_box select:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.input_box select option {
+    background-color: #333; /* Dropdown background color */
+    color: #fff; /* Dropdown text color */
+}
+
+
+        .pw_hide {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .button {
+            width: 100%;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .login_signup {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login_signup a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .login_signup a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+#registerError {
+            color: white;  /* Bright, vibrant red */
+            text-align: center;
+            margin-top: 10px;
+            background-color: rgba(255, 77, 77, 0.1);  /* Subtle background */
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 77, 77, 0.3);  /* Slight border */
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);  /* Slight text shadow for depth */
+        }
+        .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <a id="loginHeader">Login</a>
+        <a id="signupHeader">Signup</a>
+    </header>
+    <div class="glass-container">
+        <h1>WELCOME TO SPORTS ACADEMY!!</h1>
+    </div>
+<div class="container">
+    <button class="close-btn" id="closeForm">×</button>
+
+    <!-- Login Form -->
+    <div class="form login_form">
+        <form id="loginForm">
+            <h2>Login</h2>
+            <div class="input_box">
+                <input type="text" id="loginUsername" placeholder="Username or Email" required />
+            </div>
+            <div class="input_box">
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <button type="submit" class="button">Login</button>
+            <div class="login_signup">
+                Don't have an account? <a href="#" id="signup">Register</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Register Form -->
+    <div class="form signUpForm hidden">
+        <form id="signUpForm">
+            <h2>Register</h2>
+            <div class="input_box">
+                <input type="text" id="username" placeholder="Username" required />
+            </div>
+            <div class="input_box">
+                <input type="email" id="email" placeholder="Email" required />
+            </div>
+            <div class="input_box">
+                <input type="password" id="password" placeholder="Create password" required />
+                <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <div class="input_box">
+                <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+                <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <div class="input_box">
+                <select list="roles" name="role" id="role" required>
+                    <option value="">Select Role</option>
+                    <option value="ATHLETE">ATHLETE</option>
+                    <option value="COACH">COACH</option>
+                    <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                </select>
+            </div>
+            <button type="submit" class="button">Submit</button>
+            <div class="login_signup">
+                Already have an account? <a href="#" id="login">Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div id="roleValidation" class="validation-message"></div>
+</div>
+<script>
+    document.getElementById('closeForm').addEventListener('click', function () {
+    document.querySelector('.container').classList.add('hidden');
+    glassContainer.style.display = 'block'; // Show glass-container
+
+})
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // UI Elements
+        const loginHeader = document.getElementById("loginHeader");
+        const signupHeader = document.getElementById("signupHeader");
+        const loginForm = document.querySelector(".login_form");
+        const registerForm = document.querySelector(".signUpForm");
+        const home = document.querySelector(".home");
+        const formCloseBtn = document.querySelector(".form_close");
+        const signupBtn = document.querySelector("#signup");
+        const loginBtn = document.querySelector("#login");
+        const registerBtn = document.querySelector("#register-form-open");
+        const pwShowHide = document.querySelectorAll(".pw_hide");
+        const glassEffect = document.querySelector(".glass_effect");
+        const glassContainer = document.querySelector('.glass-container');
+ // Glass effect element
+
+        // Initially hide login and register forms and glass effect
+        loginForm.classList.add("hidden");
+        registerForm.classList.add("hidden");
+        glassEffect?.classList.remove("hidden");
+        glassContainer.style.display = 'block'; 
+        document.querySelector('.container').classList.add('hidden');
+            // Show glass-container
+
+
+        // Check if user session exists and handle redirection
+        function checkUserSession() {
+            const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            const username = localStorage.getItem("username") || sessionStorage.getItem("username");
+            const userId = localStorage.getItem("userId") || sessionStorage.getItem("userId");
+            const role = localStorage.getItem("role") || sessionStorage.getItem("role");
+
+            if (token && username && userId && role) {
+                redirectBasedOnRole(username, role);
+                return true;
+            }
+            return false;
+        }
+
+        // Redirect user based on role
+        function redirectBasedOnRole(username, role) {
+            if (username === "legends") {
+                window.location.href = "admindasboard.html";
+            } else if (role.includes("COACH")) {
+                window.location.href = "coachdashboard.html";
+            } else if (role.includes("ATHLETE")) {
+                window.location.href = "athlete.html";
+            } else {
+                alert("Invalid role detected. Please contact support.");
+            }
+        }
+
+        // Show popup message
+        function showPopup(message) {
+            const popup = document.createElement("div");
+            popup.textContent = message;
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.padding = "20px";
+            popup.style.backgroundColor = "#4caf50";
+            popup.style.color = "#fff";
+            popup.style.borderRadius = "10px";
+            popup.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+            popup.style.zIndex = "1000";
+            popup.style.textAlign = "center";
+            popup.style.fontSize = "18px";
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 3000);
+        }
+
+        // Toggle forms and glass effect
+        loginHeader.addEventListener("click", () => {
+            loginForm.classList.remove("hidden");
+            registerForm.classList.add("hidden");
+            glassEffect?.classList.add("hidden");
+            document.querySelector('.container').classList.remove('hidden');
+            glassContainer.style.display = 'none'; // Hide glass-container
+
+
+        });
+
+        signupHeader.addEventListener("click", () => {
+            registerForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+            glassEffect?.classList.add("hidden");
+            document.querySelector('.container').classList.remove('hidden');
+            glassContainer.style.display = 'none'; // Hide glass-container
+
+
+        });
+
+        formCloseBtn?.addEventListener("click", () => {
+            home.classList.remove("show");
+            glassEffect?.classList.remove("hidden");
+            glassContainer.style.display = 'block'; // Show glass-container
+
+        });
+
+        // Password visibility toggle
+        pwShowHide.forEach((icon) => {
+            icon.addEventListener("click", () => {
+                const getPwInput = icon.parentElement.querySelector("input");
+                if (getPwInput.type === "password") {
+                    getPwInput.type = "text";
+                    icon.classList.replace("uil-eye-slash", "uil-eye");
+                } else {
+                    getPwInput.type = "password";
+                    icon.classList.replace("uil-eye", "uil-eye-slash");
+                }
+            });
+        });
+
+        // Form navigation
+        signupBtn?.addEventListener("click", (e) => {
+            e.preventDefault();
+            loginForm.classList.add("hidden");
+            registerForm.classList.remove("hidden");
+            glassEffect?.classList.add("hidden");
+            glassContainer.style.display = 'none'; // Hide glass-container
+
+        });
+
+        loginBtn?.addEventListener("click", (e) => {
+            e.preventDefault();
+            registerForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+            glassEffect?.classList.add("hidden");
+            glassContainer.style.display = 'none'; // Hide glass-container
+
+        });
+
+        // Password validation
+        function validatePassword(password) {
+            const requirements = [
+                { regex: /[A-Z]/, message: "At least one uppercase letter" },
+                { regex: /\d/, message: "At least one number" },
+                { regex: /[@/*#$%^&]/, message: "At least one special character (@, /, *, #, $, %, ^, &)" },
+                { regex: /.{8,}/, message: "At least 8 characters long" }
+            ];
+            return requirements
+                .filter(req => !req.regex.test(password))
+                .map(req => req.message);
+        }
+
+        // Check user session on page load
+        if (checkUserSession()) return;
+
+        // Login form submission
+        document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+            const loginError = document.getElementById("loginError");
+
+            if (!username || !password) {
+                loginError.textContent = "Both username and password are required";
+                loginError.style.display = "block";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("userId", data.userId);
+                    localStorage.setItem("role", data.roles);
+                    alert("Login successful!");
+                    redirectBasedOnRole(username, data.roles);
+                } else {
+                    alert("Invalid credentials. Please try again.");
+                }
+            } catch (error) {
+                alert("Error occurred during login. Please try again.");
+                console.error("Login error:", error);
+            }
+        });
+
+        // Registration form submission
+        document.getElementById("signUpForm")?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const role = document.getElementById("role").value;
+            const registerError = document.getElementById("registerError");
+
+            const passwordValidation = validatePassword(password);
+            if (passwordValidation.length > 0) {
+                registerError.textContent = `Password requirements: ${passwordValidation.join(", ")}`;
+                registerError.style.display = "block";
+                return;
+            }
+
+            if (!username || !email || !password || !role) {
+                registerError.textContent = "All fields are required";
+                registerError.style.display = "block";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/api/auth/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, email, password, role }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Registration successful! Please log in.");
+                    loginForm.classList.remove("hidden");
+                    registerForm.classList.add("hidden");
+                    glassEffect?.classList.remove("hidden");
+                } else {
+                    registerError.textContent = data.message || "Registration failed. Please try again.";
+                    registerError.style.display = "block";
+                }
+            } catch (error) {
+                console.error("Registration error:", error);
+                registerError.textContent = "An error occurred. Please try again later.";
+                registerError.style.display = "block";
+            }
+        });
+    });
+</script>
+</body>
+</html>     

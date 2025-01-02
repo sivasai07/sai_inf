@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>completed events</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+    --primary-color: #0077be;
+    --secondary-color: #ffa500;
+    --background-dark: #121212;
+    --text-light: #f4f4f4;
+    --gradient-primary: linear-gradient(135deg, #eaecdb 0%, #fdd007 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: rgb(16,16,18);
+    background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.navbar {
+    background-color: rgba(18, 18, 18, 0.9);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+    backdrop-filter: blur(10px);
+    
+
+}
+
+
+.logo {
+    color:#ffa500;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.loo2-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background:white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.loo2-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.loo2-icon img {
+    width: 70%;
+    height: 70%;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+    margin-right: 20px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(30, 30, 30, 0.9);
+    min-width: 200px;
+    box-shadow: 0 8px 16px #ffa500;(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdownSlideIn 0.3s ease;
+}
+
+.dropdown-content a {
+    color: var(--text-light);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: var(--secondary-color);
+}
+
+        .container {
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 1200px;
+        }
+
+        .event-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .event-card {
+        width: 300px;
+        background:black;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .event-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .event-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .event-card-content {
+        padding: 20px;
+    }
+
+    .event-title {
+        font-size: 20px;
+        margin: 0 0 10px;
+        color: #007bff;
+    }
+
+    .event-details p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .cta-button {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 14px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .cta-button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .cta-button:disabled {
+        background-color: #d3d3d3;
+        cursor: not-allowed;
+    }
+
+    .event-status {
+        font-weight: bold;
+        margin-top: 10px;
+        padding: 5px 0;
+        text-align: center;
+        border-radius: 10px;
+        color:black;
+        background-color: #ffc107;
+    }
+
+    .status-registered {
+        background-color: #28a745;
+    }
+
+    .status-not-registered {
+        background-color: #ffc107;
+    }
+
+    .status-declined {
+        background-color: #dc3545;
+    }
+    @keyframes dropdownSlideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+                       /* New notification styles */
+   
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo" id="userDetails">Athletes</div>
+
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a href="athlete.html">Home</a>
+        </li>
+        <li class="dropdown">
+            <a href="#news">News</a>
+            <div class="dropdown-content">
+                <a href="Allatest-news.html">Latest News</a>
+                <a href="trending.html">Trending</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="athleteeventregistration.html">Upcoming Events</a>
+                <a href="athleteongoingevents.html">Ongoing Events</a>
+                <a href="Allpast-events.html">Completed Events</a>
+            </div>
+        </li>
+        <li><a href="athleteresults.html">Results</a></li>
+        <li><a href="athletecoaches.html">Coaches</a></li>
+         <a href="athleteprofile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="athletenotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </ul>
+</header>
+<div class="background-container">
+    <!-- Event Cards Section -->
+    <div class="container">
+        <h1 style="text-align: center;"> Completed  Events</h1>
+        <div id="event-cards" class="event-cards-container">
+
+        </div>
+
+        <!-- Event cards will be dynamically generated here -->
+    </div>
+</div>
+<script src="tokens.js"></script>
+<script src="athleteauth.js"></script>
+
+<script>
+    let sessionCheckInterval; // Variable to store the interval
+
+// Enhanced logout function
+function logout() {
+    // Clear all storage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Clear the interval if it exists
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+
+    // Redirect to login page
+    window.location.href = 'index.html';
+}
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}
+let athletesId = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Retrieve and decrypt athleteId from localStorage
+    athletesId = localStorage.getItem("athleteId");
+    
+    // Fetch only completed events after athleteId is validated
+    fetchCompletedEvents();
+});
+
+// Fetch only completed events from the backend
+async function fetchCompletedEvents() {
+    const eventCardsContainer = document.querySelector('.event-cards-container');
+    const apiUrl = 'http://localhost:8080/api/events/list'; // Replace with your backend endpoint
+    const currentDateTime = new Date();
+
+    try {
+        const response = await fetch(apiUrl, { method: 'GET' });
+        if (response.ok) {
+            const events = await response.json();
+            const completedEvents = events.filter(event => 
+                new Date(`${event.eventDate}T${event.eventTime}`) < currentDateTime
+            );
+
+            if (completedEvents.length > 0) {
+                eventCardsContainer.innerHTML = completedEvents.map(event => `
+                    <div class="event-card">
+                        <img src="${event.photoUrl || 'https://images4.alphacoders.com/251/thumb-1920-251764.jpg'}" alt="${event.eventTitle}">
+                        <div class="event-card-content">
+                            <h3 class="event-title">${event.eventTitle}</h3>
+                            <p><strong>Date:</strong> ${event.eventDate}</p>
+                            <p><strong>Time:</strong> ${event.eventTime}</p>
+                            <p><strong>Location:</strong> ${event.eventLocation}</p>
+                            <div class="event-status status-completed">Event Completed</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                renderNoEventsMessage(eventCardsContainer, true);
+            }
+        } else {
+            eventCardsContainer.innerHTML = `<p style="color: red; text-align: center;">Failed to load events.</p>`;
+        }
+    } catch (error) {
+        eventCardsContainer.innerHTML = `<p style="color: red; text-align: center;">Error fetching events: ${error.message}</p>`;
+    }
+}
+
+// Render a message for no events
+function renderNoEventsMessage(container, isCompleted = true) {
+    container.innerHTML = `<p style="text-align: center; color: ${isCompleted ? '#ff5722' : '#007bff'};">
+        No ${isCompleted ? 'completed' : 'upcoming'} events available.
+    </p>`;
+}
+
+// Render events into the specified container
+function renderEvents(events, title, container, isCompleted = true) {
+    if (events.length === 0) {
+        renderNoEventsMessage(container, isCompleted);
+        return;
+    }
+
+    // Create a section for the events
+    const section = document.createElement('div');
+    section.className = 'event-section';
+
+    // Add a title for the section
+    const sectionTitle = document.createElement('h2');
+    sectionTitle.textContent = title;
+    sectionTitle.style.textAlign = 'center';
+    sectionTitle.style.marginTop = '30px';
+    sectionTitle.style.color = isCompleted ? '#ff5722' : '#007bff';
+    section.appendChild(sectionTitle);
+
+    // Generate event cards
+    const cards = events.map(event => `
+        <div class="event-card">
+            <img src="${event.photoUrl || 'https://images4.alphacoders.com/251/thumb-1920-251764.jpg'}" alt="${event.eventTitle}">
+            <div class="event-card-content">
+                <h3 class="event-title">${event.eventTitle}</h3>
+                <p><strong>Meet Name:</strong> ${event.meetName || 'Not specified'}</p>
+                <p><strong>Category:</strong> ${event.category || 'Not specified'}</p>
+                <p><strong>Location:</strong> ${event.eventLocation || 'Online'}</p>
+                <p><strong>Date:</strong> ${event.eventDate || 'TBD'}</p>
+                <p><strong>Time:</strong> ${event.eventTime || 'TBD'}</p>
+                <div class="event-status status-completed">
+                    Event Completed
+                </div>
+            </div>
+        </div>
+    `);
+
+    // Add cards to the section
+    section.innerHTML += cards.join('');
+
+    // Append the section to the container
+    container.appendChild(section);
+}
+
+</script>
+
+</body>
+</html>

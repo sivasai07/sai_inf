@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0077be;
+            --secondary-color: #ffa500;
+            --background-dark: #121212;
+            --text-light: #f4f4f4;
+            --gradient-primary: linear-gradient(135deg, #eaecdb 0%, #fdd007 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: rgb(16,16,18);
+            background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+           
+        }
+
+        .logo {
+            color:#ffa500;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .loo2-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background:white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loo2-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .loo2-icon img {
+            width: 70%;
+            height: 70%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+            margin-right: 20px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px #ffa500;(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+        .profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 180px auto;
+            color: #fff;;
+            margin-bottom: 20px;
+            padding: 20px;
+            background:black;
+            box-shadow: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+
+        .profile-header {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .profile-picture {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ffa500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex-grow: 1;
+        }
+
+        /* Profile Section Styling */
+    .profile-details {
+        background-color: black; /* Light blue background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+    }
+
+    /* Title Styling */
+    .profile-details h1 {
+        color: #ffa500; /* Dark blue */
+        text-align: center;
+    }
+
+    /* Highlighted ID Styling */
+    .highlight-id {
+        color: #ffa500
+        font-weight: bold;
+    }
+
+    /* Highlighted Username Styling */
+    .highlight-username {
+        color: #ffa500;
+        font-weight: bold;
+    }
+
+    /* Paragraph Styling */
+    .profile-details p {
+        color: #fff /* Dark gray */
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    /* Buttons Styling */
+    .buttons .button {
+        background-color: #ffa500; /* Primary blue */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .buttons .button:hover {
+        background-color: #ffa500; /* Darker blue on hover */
+    }
+
+
+/* Overview Section */
+.overview-container {
+    background: black;
+    padding: 20px;
+    margin: 2px auto 300px auto;
+    max-width: 1200px;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.overview-container h2 {
+    color: #ffa500;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.overview-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.overview-table th,
+.overview-table td {
+    border: 1px solid #ffa500;
+    padding: 10px;
+    text-align: center;
+}
+
+.overview-table thead th {
+    background-color:black;
+    color: #ffa500;
+    font-size: 16px;
+}
+
+.overview-table tbody tr:hover {
+    background-color:blueviolet;
+}
+
+.overview-table p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-picture img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .overview-container table th,
+    .overview-container table td {
+        font-size: 12px;
+    }
+}
+        /* Modal styles */
+.modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .modal-content {
+        background: black;
+        border: 1px solid white;
+        border-radius: 10px;
+        max-height: 80vh;
+        overflow-y: auto;
+        width: 600px;
+        max-width: 90%;
+        margin: 50px auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid white;
+        padding: 15px;
+    }
+    .modal-header h2 {
+        margin: 0;
+        color: #ffa500;
+    }
+
+        .modal-header .close {
+            font-size: 1.0rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+
+    .modal-body {
+        padding: 20px;
+    }
+
+
+        .modal-body label {
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .modal-body input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+     /* New notification styles */
+  .notification-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
+
+    .notification-link {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .notification-dot {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        display: block;
+        border: 2px solid rgba(18, 18, 18, 0.9);
+    }
+
+    .notification-dot.active {
+        display: block;
+    }
+
+    .notification-icon i {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        transition: color 0.3s ease;
+        margin-right: 5px;
+    }
+
+    .notification-icon:hover i {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+     .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: white;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #555;
+        border-radius: 5px;
+        background-color: #222;
+        color: white;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px;
+        border-top: 1px solid white;
+    }
+
+    .modal-footer .button {
+        margin-left: 10px;
+    }
+    .modal-title {
+        color: #ffa500;
+    }
+            .btn-save {
+        background-color: #ffa500;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 30px;
+        margin-right: 10px;
+    }
+
+    .btn-save:hover {
+        background-color: #ffa500;
+        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-cancel {
+        background-color: #666;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 30px;
+    }
+
+    .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+    .close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo" id="userDetails">Athletes</div>
+
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a href="athlete.html">Home</a>
+        </li>
+        <li class="dropdown">
+            <a href="#news">News</a>
+            <div class="dropdown-content">
+                <a href="Allatest-news.html">Latest News</a>
+                <a href="trending.html">Trending</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="athleteeventregistration.html">Upcoming Events</a>
+                <a href="athleteongoingevents.html">Ongoing Events</a>
+                <a href="Allpast-events.html">Completed Events</a>
+            </div>
+        </li>
+        <li><a href="athleteresults.html">Results</a></li>
+        <li><a href="athletecoaches.html">Coaches</a></li>
+        <a href="athleteprofile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="athletenotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </ul>
+</header>
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-picture">
+            <img id="profilePicture" src="placeholder.jpg" alt="Profile Picture">
+        </div>
+        <div class="profile-details">
+            <h1>Athlete Profile</h1>
+            <p><strong>ID:</strong> <span id="athleteId">Loading...</span></p>
+            <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+            <p><strong>First Name:</strong> <span id="firstName">Loading...</span></p>
+            <p><strong>Last Name:</strong> <span id="lastName">Loading...</span></p>
+            <p><strong>Category:</strong> <span id="category">Loading...</span></p>
+            <p><strong>Height:</strong> <span id="height">Loading...</span></p>
+            <p><strong>Weight:</strong> <span id="weight">Loading...</span></p>
+            <p><strong>Birthdate:</strong> <span id="birthdate">Loading...</span></p>
+            <p><strong>Gender:</strong> <span id="gender">Loading...</span></p>
+            <div class="buttons">
+                <button class="button" id="changePicture">Change Picture</button>
+                <button class="button" id="editProfile">Edit Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overview-container">
+    <h2>Athlete Overview</h2>
+    <table class="overview-table">
+        <thead>
+        <tr>
+            <th>Overview</th>
+            <th>Top Performance</th>
+            <th>Wellness</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p><strong>Events Participated:</strong> <span id="eventsParticipated">national football 2024</span></p>
+                <p><strong>Total Wins:</strong> <span id="totalWins">2</span></p>
+            </td>
+            <td>
+                <p><strong>Best Score:</strong> <span id="bestScore">5</span></p>
+                <p><strong>Top Event:</strong> <span id="topEvent">football 2022</span></p>
+            </td>
+            <td>
+                <p><strong>Sleep Hours:</strong> <span id="sleepHours">7</span></p>
+                <p><strong>Stress Level:</strong> <span id="stressLevel">No/span></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p><strong>Training Sessions:</strong> <span id="trainingSessions">Morning and Evening</span></p>
+                <p><strong>Weekly Practice Hours:</strong> <span id="practiceHours">20</span></p>
+            </td>
+            <td>
+                <p><strong>Personal Best:</strong> <span id="personalBest">100m in 11.5 seconds</span></p>
+                <p><strong>Last Tournament:</strong> <span id="lastTournament">National Sprint 2023</span></p>
+            </td>
+            <td>
+                <p><strong>Recovery Hours:</strong> <span id="recoveryHours">8 per day</span></p>
+                <p><strong>Injury History:</strong> <span id="injuryHistory">Knee sprain (2021)</span></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><strong>Medals Won:</strong> <span id="medalsWon">3 Gold, 2 Silver</span></p>
+                <p><strong>Major Competitions:</strong> <span id="majorCompetitions">World Athletics 2022</span></p>
+            </td>
+            <td>
+                <p><strong>Current Ranking:</strong> <span id="currentRanking">5th National</span></p>
+                <p><strong>Career Highlights:</strong> <span id="careerHighlights">State Champion 2021</span></p>
+            </td>
+            <td>
+                <p><strong>Next Event:</strong> <span id="nextEvent">Regional Qualifiers 2024</span></p>
+                <p><strong>Long-Term Goal:</strong> <span id="longTermGoal">Olympic Gold</span></p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Edit Profile Modal -->
+<div class="modal" id="editProfileModal" style="background: rgba(0,0,0,0.7);">
+    <div class="modal-content" style="background: #2d2d2d; color: #fff; border-radius: 15px; width: 600px; max-width: 90%; margin: 50px auto;">
+        <div class="modal-header" style="border-bottom: 2px solid #ffa500; display: flex; justify-content: space-between; align-items: center; padding: 15px;">
+            <h2 style="color: #ffa500; margin: 0;">Edit Profile</h2>
+            <button class="close" id="closeModal" style="background: none; border: none; color: white; font-size: 32px; cursor: pointer; line-height: 1;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 20px;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editUsername" style="display: block; margin-bottom: 5px; color: white;">Username</label>
+                <input type="text" id="editUsername" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editFirstName" style="display: block; margin-bottom: 5px; color: white;">First Name</label>
+                <input type="text" id="editFirstName" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editLastName" style="display: block; margin-bottom: 5px; color: white;">Last Name</label>
+                <input type="text" id="editLastName" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editCategory" style="display: block; margin-bottom: 5px; color: white;">Category</label>
+                <input type="text" id="editCategory" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editHeight" style="display: block; margin-bottom: 5px; color: white;">Height</label>
+                <input type="text" id="editHeight" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editWeight" style="display: block; margin-bottom: 5px; color: white;">Weight</label>
+                <input type="text" id="editWeight" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editBirthdate" style="display: block; margin-bottom: 5px; color: white;">Birthdate</label>
+                <input type="date" id="editBirthdate" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editGender" style="display: block; margin-bottom: 5px; color: white;">Gender</label>
+                <select id="editGender" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="editPhotoUrl" style="display: block; margin-bottom: 5px; color: white;">Photo URL</label>
+                <input type="text" id="editPhotoUrl" style="width: 100%; padding: 10px; border: 2px solid #ffa500; border-radius: 5px; background-color: #333; color: #fff; font-size: 1rem;">
+            </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; padding: 15px; border-top: 1px solid #ffa500;">
+            <button class="button btn-cancel" id="cancelEdit" style="background-color: #666; color: #fff; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 30px; margin-right: 10px;">Cancel</button>
+            <button class="button btn-save" id="saveEdit" style="background-color: #ffa500; color: #fff; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 30px;">Save</button>
+        </div>
+    </div>
+</div>
+<script src="athleteauth.js"></script>
+<script src="tokens.js"></script>
+
+<script>
+ let athletesid = 0;
+  let sessionCheckInterval; // Variable to store the interval
+
+  // Enhanced logout function
+  function logout() {
+      // Clear all storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Clear the interval if it exists
+      if (sessionCheckInterval) {
+          clearInterval(sessionCheckInterval);
+      }
+
+      // Redirect to login page
+      window.location.href = 'index.html';
+  }
+
+  // Function to check session validity
+  function checkSession() {
+      const username = localStorage.getItem("username");
+      if (!username) {
+          console.log("Session invalid: Username not found");
+          logout();
+      }
+  }
+
+  // Wait until the DOM is fully loaded before running the code
+  document.addEventListener("DOMContentLoaded", function () {
+      // Start checking session every second
+      sessionCheckInterval = setInterval(checkSession, 1000);
+
+      // Retrieve stored data from localStorage or sessionStorage
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      const username = localStorage.getItem("username") || sessionStorage.getItem("username");
+      const userId = localStorage.getItem("userId") || sessionStorage.getItem("userId");
+      const roles = localStorage.getItem("roles") || sessionStorage.getItem("roles");
+
+      // Initial session check
+      if (!username) {
+          logout();
+          return;
+      }
+
+      // Store retrieved data in variables
+      let userToken = token;
+      let userUsername = username;
+      let userUserId = userId;
+      let userRoles = roles;
+
+      // Display user details on the page if the user is logged in
+      const userDetailsElement = document.getElementById("userDetails");
+      if (userDetailsElement) {
+          if (userToken && userUsername && userUserId) {
+
+              userDetailsElement.textContent = `ATHLETE - ${userUsername}`;
+          } else {
+              userDetailsElement.textContent = "No user details found. Please log in again.";
+              logout();
+              return;
+          }
+      } else {
+          console.warn("User details element not found");
+      }
+
+      // Log the retrieved details for debugging purposes
+      console.log("User Token:", userToken);
+      console.log("Username:", userUsername);
+      console.log("User ID:", userUserId);
+      console.log("Roles:", userRoles);
+
+      // If user is logged in, fetch the athlete ID
+      if (userUserId) {
+      } else {
+          logout();
+          return;
+      }
+        // Fetch athleteId from localStorage
+        const athleteId = localStorage.getItem("athleteId");
+        console.log("Fetched Athlete ID:", athleteId);
+
+        // Check if athleteId exists in localStorage
+        if (!athleteId) {
+            alert("Athlete ID is missing! Please log in again.");
+            window.location.href = "athlete.html";  // Redirect to login page or athlete page
+            return;
+        }
+
+        // If athleteId exists, proceed to fetch athlete details
+        fetchAthleteDetails(athleteId);
+    });
+
+    async function fetchAthleteDetails(athleteId) {
+        try {
+            // Ensure athleteId is a string and not an HTML element
+            console.log("Using athleteId:", athleteId);
+
+            const response = await fetch(`http://127.0.0.1:8080/api/athletes/${athleteId}`);
+            if (!response.ok) throw new Error("Failed to fetch athlete details.");
+
+            const athlete = await response.json();
+            console.log("Fetched athlete details:", athlete); // Log the athlete data for debugging
+
+            // Update profile with fetched details
+            document.getElementById('athleteId').textContent = athleteId || "N/A";
+            document.getElementById('username').textContent = athlete.username || "N/A";
+            document.getElementById('firstName').textContent = athlete.firstName || "N/A";
+            document.getElementById('lastName').textContent = athlete.lastName || "N/A";
+            document.getElementById('category').textContent = athlete.category || "N/A";
+            document.getElementById('height').textContent = athlete.height || "N/A";
+            document.getElementById('weight').textContent = athlete.weight || "N/A";
+            document.getElementById('birthdate').textContent = athlete.birthDate || "N/A";
+            document.getElementById('gender').textContent = athlete.gender || "N/A";
+
+            // Set the profile image if exists, else use placeholder
+            const profileImageUrl = athlete.photoUrl || 'http://localhost:8080/placeholder.jpg';
+            document.getElementById('profilePicture').src = profileImageUrl;
+
+            // Pre-fill editable fields for the modal
+            document.getElementById('editUsername').value = athlete.username || "";
+            document.getElementById('editFirstName').value = athlete.firstName || "";
+            document.getElementById('editLastName').value = athlete.lastName || "";
+            document.getElementById('editCategory').value = athlete.category || "";
+            document.getElementById('editHeight').value = athlete.height || "";
+            document.getElementById('editWeight').value = athlete.weight || "";
+            document.getElementById('editBirthdate').value = athlete.birthDate || "";
+            document.getElementById('editGender').value = athlete.gender || "";
+            document.getElementById('editPhotoUrl').value = athlete.photoUrl || "";
+
+        } catch (error) {
+            console.error('Error fetching athlete details:', error);
+            alert('Error fetching athlete details!');
+        }
+    }
+
+    document.getElementById('editProfile').addEventListener('click', () => {
+        const modal = document.getElementById('editProfileModal');
+        modal.style.display = 'flex';
+    });
+
+    document.getElementById('changePicture').addEventListener('click', () => {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    document.getElementById('profilePicture').src = e.target.result;
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('athleteId', athleteId);
+
+                    try {
+                        const response = await fetch('http://127.0.0.1:8080/api/athletes/uploadProfilePicture', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Failed to upload profile picture');
+                        }
+
+                        const result = await response.json();
+                        await fetch(`http://127.0.0.1:8080/api/athletes/update/${athleteId}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ photoUrl: result.photoUrl })
+                        });
+
+                        alert('Profile picture updated successfully!');
+                    } catch (error) {
+                        console.error('Error uploading profile picture:', error);
+                        alert('  profile picture uploaded');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        fileInput.click();
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('editProfileModal').style.display = 'none';
+    });
+
+    document.getElementById('cancelEdit').addEventListener('click', () => {
+        document.getElementById('editProfileModal').style.display = 'none';
+    });
+
+    document.getElementById('saveEdit').addEventListener('click', async () => {
+        const athleteId = localStorage.getItem("athleteId");  // Get athleteId from localStorage
+
+        if (!athleteId) {
+            alert("Athlete ID is missing. Please log in again.");
+            return;
+        }
+    
+        const updatedDetails = {
+            username: document.getElementById('editUsername').value,
+            firstName: document.getElementById('editFirstName').value,
+            lastName: document.getElementById('editLastName').value,
+            category: document.getElementById('editCategory').value,
+            height: document.getElementById('editHeight').value,
+            weight: document.getElementById('editWeight').value,
+            birthdate: document.getElementById('editBirthdate').value,
+            gender: document.getElementById('editGender').value,
+            photoUrl: document.getElementById('editPhotoUrl').value
+        };
+
+        try {
+            // Update the athlete details
+            const response = await fetch(`http://127.0.0.1:8080/api/athletes/update/${athleteId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedDetails)
+            });
+
+            if (!response.ok) throw new Error("Failed to update profile.");
+
+            // After successful update, fetch the athlete details again
+            const athleteResponse = await fetch(`http://127.0.0.1:8080/api/athletes/${athleteId}`);
+            if (!athleteResponse.ok) throw new Error("Failed to fetch updated athlete details.");
+
+            const athlete = await athleteResponse.json();
+            console.log("Updated Athlete Details:", athlete);
+
+            alert('Profile updated successfully!');
+            document.getElementById('editProfileModal').style.display = 'none';
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Error updating profile!');
+        }
+
+    });
+
+
+</script>
+
+</body>
+</html>

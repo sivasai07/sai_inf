@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Notifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        :root {
+    --primary-color: #0077be;
+    --secondary-color: #00a86b;
+    --background-dark: #121212;
+    --text-light: #f4f4f4;
+    --gradient-primary: linear-gradient(135deg, #0077be 0%, #00a86b 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background: rgb(16,16,18);
+background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+background-size: cover;
+color: #333;
+}
+
+.event-text{
+    margin: 40px;
+    max-width: 400%;
+    font-size: 100px;
+    padding: 10px;
+    font-size: large;
+    text-align: center;
+    color: white;
+ }
+    /* Custom Navbar Styling */
+    nav {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    nav .brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffa500;
+    }
+
+    nav .nav-links a {
+        text-decoration: none;
+        margin: 0 15px;
+        color: #ffffff;
+        transition: color 0.3s ease;
+    }
+
+    nav .nav-links a:hover {
+        color: #ffa500;
+    }
+
+    nav .nav-links a.active {
+        font-weight: bold;
+    }
+      .navbar {
+    color: white;
+    background-color: rgba(18, 18, 18, 0.9);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin-right: 40px;
+
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.logo {
+    color: var(--text-light);
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+
+.dropdown {
+    position: relative;
+    left: -4em;
+    margin-left: 40px;
+    margin-right:-60px ;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(30, 30, 30, 0.9);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdownSlideIn 0.3s ease;
+}
+
+.dropdown-content a {
+    color: var(--text-light);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: var(--secondary-color);
+}
+@keyframes dropdownSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+.notification-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .notification-link {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .notification-dot {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        display: block;
+        border: 2px solid rgba(18, 18, 18, 0.9);
+    }
+
+    .notification-dot.active {
+        display: block;
+    }
+
+    .notification-icon i {
+        font-size: 1rem;
+        color: var(--text-light);
+        transition: color 0.3s ease;
+        margin-right: 5px;
+    }
+
+    .notification-icon:hover i {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    } 
+
+        /* Notification icon specific styling */
+        .notification-icon {
+            margin: 0 20px; /* Match the spacing of other nav items */
+        }
+
+        .notification-link {
+            display: flex;
+            align-items: center;
+        }
+               #notifications-container {
+    margin: 129px auto 20px;  /* Top margin to push it below header, centered horizontally */
+    padding: 35px;
+    border: 1px solid rgba(221, 221, 221, 0.2);
+    border-radius: 15px;
+    background-color: rgba(30, 30, 30, 0.8);
+    max-width: 600px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+#notifications-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+#notifications-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#notifications-list li {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 10px;
+    color: #f4f4f4;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+#notifications-list li:hover {
+    background-color: rgba(70, 70, 70, 0.7);
+}
+
+#notifications-list li:last-child {
+    border-bottom: none;
+}
+        .notification-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.notification-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    text-decoration: none;
+    position: relative;
+}
+
+.notification-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: block;
+    border: 2px solid rgba(18, 18, 18, 0.9);
+}
+
+.notification-dot.active {
+    display: block;
+}
+
+.notification-icon i {
+    font-size: 1.5rem; /* Increased from previous size */
+    color: var(--text-light);
+    transition: color 0.3s ease, transform 0.3s ease; /* Added transform transition */
+    margin-right: 5px;
+}
+
+.notification-icon:hover i {
+    color: var(--secondary-color);
+    transform: scale(1.1); /* Added scale effect on hover */
+}
+
+        /* Main container */
+        .container {
+            margin: 140px auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Team grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Team card */
+        .team-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+        }
+
+        .team-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .team-card .team-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffa500;
+            margin-bottom: 5px;
+        }
+
+        .team-card .member-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        /* Container style */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top:100px ;
+    background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width:80%;
+    align-items: center;
+
+}
+
+h1,h2 {
+    text-align: center;
+    font-size: 2.3em;
+    margin-bottom: 20px;
+    color: #f4f4f4;
+
+}
+
+/* Notification card styling */
+.notification-card {
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color:rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #f4f4f4;
+    width:70%;
+    height:170px;
+    align-items: center;
+    margin-left:20%;
+
+
+}
+
+.notification-card .card-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #f4f4f4;
+
+}
+
+.notification-card .card-body {
+    margin-bottom: 15px;
+    color: #f4f4f4;
+}
+
+.notification-card .card-footer {
+    display: flex;
+    flex-direction: column;
+    color: #f4f4f4;
+
+}
+
+.notification-card textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #121212;
+    color: white;
+}
+
+.notification-card button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.notification-card button:hover {
+    background-color: #45a049;
+}
+.logo {
+            color:#ffa500;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .container { padding: 20px; }
+        .notification-card { border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; }
+        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid #ccc; padding: 20px; background: white; z-index: 1000; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999; }
+        .notifications-list {
+    margin-top: 20px;
+}
+#notificationsContainer {
+    width: 80%;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
+    align-items: center;
+    margin-left: 100px;
+}
+
+/* Style for each notification */
+.notification {
+    background-color: #2c2c2c; /* Darker background for individual notifications */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.notification:hover {
+    background-color: #444444; /* Lighter background on hover */
+}
+
+/* Notification header (athlete info) */
+.notification strong {
+    color: #ffcc00; /* Highlight athlete name with yellow color */
+}
+
+/* Status message */
+.notification em {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    color: white; /* Lighter gray for the status text */
+}
+
+/* Button styles */
+button {
+    background-color: #ffcc00; /* Yellow color for the reply button */
+    color: white; /* Black text */
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e6b800; /* Slightly darker yellow on hover */
+}
+
+/* For small screens */
+@media (max-width: 768px) {
+    #notificationsContainer {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .notification {
+        padding: 10px;
+    }
+}
+/* Style for the overlay */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
+    z-index: 999; /* Ensures it sits above other content */
+}
+
+/* Style for the popup */
+#athlete-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000000; /* Black background */
+    color: #ffffff; /* White text color */
+    padding: 20px 30px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
+    z-index: 1000; /* Above overlay */
+    text-align: center;
+}
+
+/* Popup title */
+#athlete-popup h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #ffffff; /* White text */
+}
+
+/* Athlete details */
+#athlete-details {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #dddddd; /* Light gray text */
+    text-align: left;
+}
+
+/* Textarea for remarks */
+#remarks {
+    width: calc(100% - 20px);
+    height: 80px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #555555; /* Dark gray border */
+    border-radius: 5px;
+    background: #222222; /* Dark background for textarea */
+    color: #ffffff; /* White text */
+    resize: none;
+    font-size: 1rem;
+}
+
+/* Buttons */
+#athlete-popup button {
+    background-color: #007BFF; /* Primary color */
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#athlete-popup button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+}
+
+/* Specific styles for Accept and Reject buttons */
+#athlete-popup button:nth-child(1) {
+    background-color: #28a745; /* Green for Accept */
+}
+
+#athlete-popup button:nth-child(1):hover {
+    background-color: #218838; /* Darker green */
+}
+
+#athlete-popup button:nth-child(2) {
+    background-color: #dc3545; /* Red for Reject */
+}
+
+#athlete-popup button:nth-child(2):hover {
+    background-color: #c82333; /* Darker red */
+}
+
+#athlete-popup button:nth-child(3) {
+    background-color: #6c757d; /* Grey for Close */
+}
+
+#athlete-popup button:nth-child(3):hover {
+    background-color: #5a6268; /* Darker grey */
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
+    #athlete-popup {
+        width: 90%; /* Make popup smaller on smaller screens */
+    }
+}
+
+    </style>
+</head>
+<body>
+<!-- Header Section -->
+<nav>
+    <div class="logo" id="userDetails">coach</div>
+    <div class="nav-links">
+        <a href="coachdashboard.html">Home</a>
+        <a href="coachnews.html">News</a>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="coachevents.html">Upcoming Events</a>
+                <a href="coachongoingevents.html">Ongoing Events</a>
+                <a href="coach-Allpast-events.html">Past Events</a>
+            </div>
+        </li>             <a href="coachperformance.html">Performance</a>
+        <a href="coachresults.html">Results</a>
+        <a href="coachAthlete.html">Athletes</a>
+        <a href="coachProfile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="coachnotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </div>
+</nav>
+    <div class="container">
+        <h1>Coach Dashboard</h1>
+        <div id="notifications-list"></div>
+
+    <!-- Athlete Details Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="athlete-popup">
+        <h2>Athlete Details</h2>
+        <div id="athlete-details"></div>
+        <textarea id="remarks" placeholder="Add remarks"></textarea>
+        <button onclick="acceptRequest()">Accept</button>
+        <button onclick="rejectRequest()">Reject</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <h2>Notifcation's by athlete </h2>
+    <div id="notificationsContainer" class="notifications-list">
+        <!-- Notifications will be populated here -->
+    </div>
+</div>
+
+<!-- Modal structure -->
+<div id="replyModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: black; color: white; padding: 20px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); border-radius: 8px; z-index: 1000;">
+    <h3>Reply to Notification</h3>
+    <textarea id="replyText" rows="4" style="width: 100%; margin-bottom: 10px;color:white ; background-color: #121212;"></textarea>
+    <button id="sendReplyButton" style="margin-right: 10px;">Send</button>
+    <button id="closeModalButton">Cancel</button>
+</div>
+
+<!-- Modal background -->
+<div id="modalBackground" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+
+    <script src="tokens.js"></script>
+    <script src="coachauth.js"></script>
+
+    <script>
+const BASE_API_URL = "http://localhost:8080/api";
+let currentRequestId = null;
+let currentAthleteId = null;
+
+// Enhanced logout function
+function logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}
+
+// Function to load assistance requests and display them as cards
+function loadAssistanceRequests() {
+    const coachId = localStorage.getItem("coachId");
+    if (!coachId) {
+        alert("Coach ID not found in local storage.");
+        return;
+    }
+
+    fetch(`${BASE_API_URL}/assistance-requests/coach/${coachId}`)
+        .then((response) => response.json())
+        .then((requests) => {
+            const notificationsList = document.getElementById("notifications-list");
+            notificationsList.innerHTML = "";
+
+            if (requests.length === 0) {
+                notificationsList.innerHTML = "<p>No assistance requests found.</p>";
+                return;
+            }
+
+            requests.forEach((request) => {
+                const card = document.createElement("div");
+                card.classList.add("notification-card");
+
+                card.innerHTML = ` 
+                    <p><strong>Athlete ID:</strong> ${request.athleteId}</p>
+                    <p><strong>Status:</strong> ${request.status}</p>
+                    <button onclick="viewAthleteDetails(${request.id}, ${request.athleteId})">View Details</button>
+                `;
+
+                notificationsList.appendChild(card);
+            });
+        })
+        .catch((error) => {
+            alert("Error loading assistance requests.");
+            console.error("Error fetching requests:", error);
+        });
+}
+
+// Function to view athlete details in a popup
+function viewAthleteDetails(requestId, athleteId) {
+    currentRequestId = requestId;
+    currentAthleteId = athleteId;
+
+    fetch(`${BASE_API_URL}/athletes/${athleteId}`)
+        .then((response) => response.json())
+        .then((athlete) => {
+            const athleteDetails = document.getElementById("athlete-details");
+            athleteDetails.innerHTML = `
+                <p><strong>Name:</strong> ${athlete.firstName} ${athlete.lastName}</p>
+                <p><strong>Category:</strong> ${athlete.category}</p>
+                <p><strong>Gender:</strong> ${athlete.gender}</p>
+                <p><strong>Height:</strong> ${athlete.height}</p>
+                <p><strong>Weight:</strong> ${athlete.weight}</p>
+            `;
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("athlete-popup").style.display = "block";
+        })
+        .catch((error) => {
+            alert("Error fetching athlete details.");
+            console.error("Error fetching athlete:", error);
+        });
+}
+
+// Function to accept the assistance request
+function acceptRequest() {
+    const remarks = document.getElementById("remarks").value;
+    if (!remarks.trim()) {
+        alert("Please add remarks before accepting.");
+        return;
+    }
+
+    const coachId = localStorage.getItem("coachId");
+    const athleteId = currentAthleteId;
+
+    fetch(`${BASE_API_URL}/assistance-requests/accept?athleteId=${athleteId}&coachId=${coachId}&remarks=${remarks}`, {
+        method: "PUT",
+    })
+    .then((response) => {
+        if (response.ok) {
+            alert("Request accepted successfully.");
+            closePopup();
+            loadAssistanceRequests(); // Reload assistance requests
+            loadNotifications(); // Reload notifications
+        } else {
+            throw new Error("Failed to accept request.");
+        }
+    })
+    .catch((error) => {
+        alert("Error accepting the request.");
+        console.error("Error accepting request:", error);
+    });
+}
+
+// Function to reject the assistance request
+function rejectRequest() {
+    const remarks = document.getElementById("remarks").value;
+    if (!remarks.trim()) {
+        alert("Please add remarks before rejecting.");
+        return;
+    }
+
+    const coachId = localStorage.getItem("coachId");
+    const athleteId = currentAthleteId;
+
+    fetch(`${BASE_API_URL}/assistance-requests/reject?athleteId=${athleteId}&coachId=${coachId}&remarks=${remarks}`, {
+        method: "PUT",
+    })
+    .then((response) => {
+        if (response.ok) {
+            alert("Request rejected successfully.");
+            closePopup();
+            loadAssistanceRequests(); // Reload assistance requests
+        } else {
+            throw new Error("Failed to reject request.");
+        }
+    })
+    .catch((error) => {
+        alert("Error rejecting the request.");
+        console.error("Error rejecting request:", error);
+    });
+}
+
+// Function to load notifications after request acceptance
+function loadNotifications() {
+    const coachId = localStorage.getItem("coachId");
+    const athleteId = currentAthleteId;
+
+    if (!coachId || !athleteId) {
+        alert("Coach or Athlete ID not found.");
+        return;
+    }
+
+    // Step 1: Check if the request for the athlete and coach is accepted
+    fetch(`${BASE_API_URL}/assistance-requests/athlete/${athleteId}`)
+        .then((response) => response.json())
+        .then((requests) => {
+            const acceptedRequest = requests.find(request => 
+                request.coachId === parseInt(coachId) && request.status === "accepted"
+            );
+
+            // If no accepted request found, show a message and stop
+            if (!acceptedRequest) {
+                alert("No accepted request found for this athlete and coach.");
+                return;
+            }
+
+            // Step 2: If the request is accepted, fetch notifications
+            fetch(`${BASE_API_URL}/coach_notifications/coach/${coachId}`)
+                .then((response) => response.json())
+                .then((notifications) => {
+                    const notificationsList = document.getElementById("notifications-list");
+                    notificationsList.innerHTML = ""; // Clear current notifications
+
+                    const acceptedNotifications = notifications.filter(notification => 
+                        notification.athleteId === athleteId && notification.status === "accepted"
+                    );
+
+                    if (acceptedNotifications.length === 0) {
+                        notificationsList.innerHTML = "<p>No accepted notifications found.</p>";
+                        return;
+                    }
+
+                    // Display notifications for the athlete and coach
+                    acceptedNotifications.forEach((notification) => {
+                        const notificationCard = document.createElement("div");
+                        notificationCard.classList.add("notification-card");
+
+                        notificationCard.innerHTML = `
+                            <p><strong>Athlete ID:</strong> ${notification.athleteId}</p>
+                            <p><strong>Message:</strong> ${notification.message}</p>
+                        `;
+
+                        notificationsList.appendChild(notificationCard);
+                    });
+                })
+                .catch((error) => {
+                    alert("Error loading notifications.");
+                    console.error("Error fetching notifications:", error);
+                });
+        })
+        .catch((error) => {
+            alert("Error checking request status.");
+            console.error("Error fetching assistance request:", error);
+        });
+}
+
+// Function to close the athlete popup
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("athlete-popup").style.display = "none";
+}
+async function fetchNotifications() { 
+    try {
+        const coachId = localStorage.getItem("coachId");
+        const response = await fetch(`http://127.0.0.1:8080/api/coach_notifications/coach/${coachId}`);
+        const notifications = await response.json();
+        displayNotifications(notifications, coachId);  // Pass coachId to the display function
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+    }
+}
+
+// Function to display notifications
+async function displayNotifications(notifications, coachId) {
+    const notificationsContainer = document.getElementById('notificationsContainer');
+    notificationsContainer.innerHTML = ''; // Clear any existing notifications
+
+    // Loop through the notifications to display them
+    for (const notification of notifications) {
+        const athleteId = notification.athleteId; // Get athleteId from notification
+
+        // Fetch the status of the assistance request for this athlete and coach
+        try {
+            const statusResponse = await fetch(`http://localhost:8080/api/assistance-requests/status?athleteId=${athleteId}&coachId=${coachId}`);
+            const status = await statusResponse.text();
+
+            // Check if the status is "accepted" and if the coach has not replied
+            if (status === "ACCEPTED" && !notification.coachReply) {
+                const notificationDiv = document.createElement('div');
+                notificationDiv.className = 'notification';
+                notificationDiv.innerHTML = 
+                    `<div>
+                        <strong>Athlete ${notification.athleteId}:</strong> ${notification.message}
+                        <button onclick="replyWithStatus(${notification.id}, '${coachId}')">Reply</button>
+                    </div>`
+                ;
+                notificationsContainer.appendChild(notificationDiv);
+            }
+        } catch (error) {
+            console.error('Error fetching status for athlete', athleteId, 'and coach', coachId, ':', error);
+        }
+    }
+}
+
+// Function to reply with status "seen" and send the reply
+async function replyWithStatus(notificationId, coachId) {
+    const modal = document.getElementById("replyModal");
+    const modalBackground = document.getElementById("modalBackground");
+    const replyText = document.getElementById("replyText");
+    const sendReplyButton = document.getElementById("sendReplyButton");
+    const closeModalButton = document.getElementById("closeModalButton");
+
+    // Show modal
+    modal.style.display = "block";
+    modalBackground.style.display = "block";
+
+    // Close modal function
+    const closeModal = () => {
+        modal.style.display = "none";
+        modalBackground.style.display = "none";
+        replyText.value = "";
+    };
+
+    // Add event listener to "Send" button
+    sendReplyButton.onclick = async () => {
+        const reply = replyText.value.trim();
+        if (reply) {
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/coach_notifications/update/${notificationId}?coachReply=${encodeURIComponent(reply)}&status=SEEN`, {
+                    method: "PUT",
+                });
+
+                if (response.ok) {
+                    alert("Reply sent successfully.");
+                    fetchNotifications(); // Refresh notifications after reply
+                } else {
+                    console.error("Failed to update notification.");
+                }
+            } catch (error) {
+                console.error('Error replying with status "seen":', error);
+            } finally {
+                closeModal();
+            }
+        } else {
+            alert("Please enter a reply.");
+        }
+    };
+
+    // Add event listener to "Cancel" button
+    closeModalButton.onclick = closeModal;
+
+    // Close modal if background is clicked
+    modalBackground.onclick = closeModal;
+}
+
+
+// Load data after page load
+
+
+// Load data after page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadAssistanceRequests();
+    fetchNotifications();
+
+});
+
+</script>
+
+        
+</body>
+</html>

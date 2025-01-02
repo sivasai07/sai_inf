@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <style>
+    :root {
+--primary-color: #0077be;
+--secondary-color: #00a86b;
+--background-dark: #121212;
+--text-light: #f4f4f4;
+--gradient-primary: linear-gradient(135deg, #0077be 0%, #00a86b 100%);
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+}
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background: rgb(16,16,18);
+background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+background-size: cover;
+color: #333;
+}
+
+.event-text{
+margin: 40px;
+max-width: 400%;
+font-size: 100px;
+padding: 10px;
+font-size: large;
+text-align: center;
+color: white;
+}
+/* Custom Navbar Styling */
+nav {
+background: rgba(0, 0, 0, 0.9);
+padding: 15px 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+nav .brand {
+font-size: 1.5rem;
+font-weight: bold;
+color: #ffa500;
+}
+
+nav .nav-links a {
+text-decoration: none;
+margin: 0 15px;
+color: #ffffff;
+transition: color 0.3s ease;
+}
+
+nav .nav-links a:hover {
+color: #ffa500;
+}
+
+nav .nav-links a.active {
+font-weight: bold;
+}
+.navbar {
+color: white;
+background-color: rgba(18, 18, 18, 0.9);
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+transition: background-color 0.3s ease;
+backdrop-filter: blur(10px);
+}
+.nav-links {
+display: flex;
+list-style: none;
+gap: 20px;
+margin-right: 40px;
+
+}
+
+.nav-links li {
+position: relative;
+}
+
+.nav-links a {
+color: var(--text-light);
+text-decoration: none;
+font-weight: 500;
+transition: all 0.3s ease;
+position: relative;
+padding-bottom: 5px;
+}
+
+.nav-links a::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: 0;
+left: 0;
+background: var(--gradient-primary);
+transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+width: 100%;
+}
+
+.nav-links a:hover {
+color: var(--secondary-color);
+transform: translateY(-3px);
+}
+/* Dashboard Styling */
+.container {
+margin: 100px;
+padding: 30px;
+border-radius: 15px;
+background: rgba(0, 0, 0, 0.8);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+max-width: 1000px;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+}
+
+.dashboard-header h2 {
+font-weight: 700;
+font-size: 2rem;
+margin-bottom: 20px;
+color: #ffa500;
+}
+
+.dashboard-buttons {
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+justify-content: center;
+}
+
+.dashboard-buttons a {
+text-decoration: none;
+color: white;
+background-color: #0066cc;
+padding: 12px 20px;
+border-radius: 8px;
+font-weight: bold;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dashboard-buttons a:hover {
+background-color: #ffa500;
+transform: translateY(-5px);
+}
+
+/* Table Styling */
+.table-container {
+margin-top: 20px;
+}
+
+.table {
+color: #ffffff;
+border-radius: 10px;
+overflow: hidden;
+}
+
+thead {
+background-color: #ffa500;
+color: black;
+}
+
+tbody tr:nth-child(odd) {
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:hover {
+background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Search Bar */
+.search-bar {
+margin: 20px 0;
+display: flex;
+justify-content: center;
+}
+
+.search-bar input {
+width: 50%;
+padding: 10px;
+border: none;
+border-radius: 5px;
+outline: none;
+}
+
+.search-bar input::placeholder {
+font-style: italic;
+}
+.dropdown {
+    position: relative;
+    left: -4em;
+    margin-left: 40px;
+    margin-right:-60px ;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(30, 30, 30, 0.9);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: dropdownSlideIn 0.3s ease;
+}
+
+.dropdown-content a {
+    color: var(--text-light);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    color: var(--secondary-color);
+}
+@keyframes dropdownSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+  </style>
+</head>
+<body>
+<!-- Background Overlay -->
+<div class="overlay"></div>
+
+<!-- Navbar -->
+<nav>
+    <div class="brand">Admin</div>
+    <div class="nav-links">
+        <a href="admindasboard.html">Home</a>
+        <a href="admin-news.html">News</a>
+        <br>
+       
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="admin-upcomingevents.html">Upcoming Events</a>
+                <a href="admin-ongoingevents.html">Ongoing Events</a>
+                <a href="admin-Allpast-events.html">Past Events</a>
+            </div>
+        </li>     
+       <a href="admin-Resultss.html">Results</a>
+        <a href="admin-coaches.html">Coaches</a>
+        <a href="adminathletes.html">Athletes</a>
+        <a href="AdminProfile.html">Profile</a>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+      </div>
+</nav>
+
+
+  <!-- Main Dashboard -->
+  <div class="container">
+    <div class="dashboard-header text-center">
+      <h2>Welcome, Admin</h2>
+      <p style="color:white;">Manage events, track progress, and oversee activities with ease.</p>
+    </div>
+    <div class="dashboard-buttons">
+      <a href="admin-create-events.html">Create Events</a>
+      <a href="admin-create-meet.html">Create Meets</a>
+      <a href="admin-shortlist-candidates.html">Shortlist Candidates</a>
+      <a href="admin-publish-results.html">Publish Results</a>
+    </div>
+  </div>
+  <script src="tokens.js"></script>
+
+<script>
+ 
+// Logout function
+let sessionCheckInterval; // Variable to store the interval
+
+// Enhanced logout function
+function logout() {
+    // Clear all storage
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Clear the interval if it exists
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+    
+    // Redirect to login page
+    window.location.href = 'index.html';
+}
+
+// Function to check session validity
+function checkSession() {
+    const username = localStorage.getItem("username");
+    if (!username) {
+        console.log("Session invalid: Username not found");
+        logout();
+    }
+}
+
+// Wait until the DOM is fully loaded before running the code
+document.addEventListener("DOMContentLoaded", function () {
+    // Start checking session every second
+    sessionCheckInterval = setInterval(checkSession, 1000);
+
+    // Retrieve stored data from localStorage or sessionStorage
+    const username = localStorage.getItem("username") || sessionStorage.getItem("username");
+    
+    // Initial session check
+    if (username!="legends") {
+        logout();
+        return;
+    }
+
+    // Store retrieved data in variables
+    
+    let userUsername = username;
+    
+    // Display user details on the page if the user is logged in
+    const userDetailsElement = document.getElementById("userDetails");
+    if (userDetailsElement) {
+        if (userUsername) {
+            userDetailsElement.textContent = `ADMIN - ${userUsername}`;
+        } else {
+            userDetailsElement.textContent = "No user details found. Please log in again.";
+            logout();
+            return;
+        }
+    } else {
+        console.warn("User details element not found");
+    }
+
+    
+    console.log("User ID:", userUserId);
+
+    
+
+    // Fetch Coach ID from the API
+    
+}
+);
+window.addEventListener('unload', function() {
+    if (sessionCheckInterval) {
+        clearInterval(sessionCheckInterval);
+    }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0077be;
+            --secondary-color: #ffa500;
+            --background-dark: #121212;
+            --text-light: #f4f4f4;
+            --gradient-primary: linear-gradient(135deg, #eaecdb 0%, #fdd007 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: rgb(16,16,18);
+            background: linear-gradient(108deg, rgba(16,16,18,1) 0%, rgba(1,28,55,1) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+            
+
+        }
+
+        .logo {
+            color:#ffa500;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .loo2-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background:white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loo2-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .loo2-icon img {
+            width: 70%;
+            height: 70%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+            margin-right: 20px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(30, 30, 30, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px #ffa500;(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: dropdownSlideIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            color: var(--text-light);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #000428, #004e92);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 15px;
+
+            background:black;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Event Cards */
+        .events-container {
+            margin-left: 11%;
+            background: rgb(16, 16, 18);
+            background: linear-gradient(108deg, rgba(16, 16, 18, 1) 0%, rgba(1, 28, 55, 1) 100%);
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 362.5px);
+            gap: 80px;
+            align-items: center;
+        }
+        h1{
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 362.5px);
+            gap: 80px;
+            text-align: center;
+            margin-top: 100px;
+            margin-left:38%;
+
+        }
+        .event-card {
+           background: rgba(255, 223, 77, 0.1); /* More transparent yellow */
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(255, 223, 77, 0.2); /* Lighter yellowish shadow */
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 100%;
+            margin: 5px;
+            align-items: center;
+       }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 223, 77, 0.4); /* Enhance shadow on hover */
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-image {
+            transform: scale(1.05);
+        }
+
+        .event-details {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .event-details h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .event-details p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #ccc;
+            opacity: 0.9;
+        }
+
+        .event-details .check-status-btn {
+            padding: 12px 20px;
+            background: var(--secondary-color);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background 0.3s, box-shadow 0.3s; /* Removed transform from transition */
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            width:90% ;
+            transform: translateX(-50%);
+        }
+
+        .event-details .check-status-btn:hover {
+            background: #009966;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .no-events-message {
+                font-size: 1.5rem;
+                color: #f4f4f4;
+                text-align: center;
+                margin-top: 20px;
+                font-weight: bold;
+            }
+
+        /* Add subtle animation on card appearance */
+        .event-card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        html {
+    scroll-behavior: smooth;
+}
+
+        @keyframes dropdownSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+                /* New notification styles */
+  .notification-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .notification-link {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .notification-dot {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        display: block;
+        border: 2px solid rgba(18, 18, 18, 0.9);
+    }
+
+    .notification-dot.active {
+        display: block;
+    }
+
+    .notification-icon i {
+        font-size: 1rem;
+        color: var(--text-light);
+        transition: color 0.3s ease;
+        margin-right: 5px;
+    }
+
+    .notification-icon:hover i {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo" id="userDetails">Athletes</div>
+
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a href="athlete.html">Home</a>
+        </li>
+        <li class="dropdown">
+            <a href="#news">News</a>
+            <div class="dropdown-content">
+                <a href="Allatest-news.html">Latest News</a>
+                <a href="trending.html">Trending</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#events">Events</a>
+            <div class="dropdown-content">
+                <a href="athleteeventregistration.html">Upcoming Events</a>
+                <a href="athleteongoingevents.html">Ongoing Events</a>
+                <a href="Allpast-events.html">Completed Events</a>
+            </div>
+        </li>
+        <li><a href="athleteresults.html">Results</a></li>
+        <li><a href="athletecoaches.html">Coaches</a></li>
+        <a href="athleteprofile.html">Profile</a>
+        <li class="notification-icon">
+            <a href="athletenotifications.html" class="notification-link">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot" id="notificationDot"></span>
+            </a>
+        </li>
+        <li><a href="index.html" id="logoutlink" onclick="logout()">Logout</a></li>
+    </ul>
+</header>
+
+
+<!-- Events Section -->
+<section id="events-section">
+       <h1> Registered Events</h1>
+    <div class="events-container" id="eventsContainer">
+
+        <!--        <input type="text" writingsuggestions="true">-->
+        <!-- Event cards will be dynamically loaded here -->
+    </div>
+</section>
+<script src="tokens.js"></script>
+
+
+<script>
+    let athletesid = 0;
+  let sessionCheckInterval; // Variable to store the interval
+
+  // Enhanced logout function
+  function logout() {
+      // Clear all storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Clear the interval if it exists
+      if (sessionCheckInterval) {
+          clearInterval(sessionCheckInterval);
+      }
+
+      // Redirect to login page
+      window.location.href = 'index.html';
+  }
+
+  // Function to check session validity
+  function checkSession() {
+      const username = localStorage.getItem("username");
+      if (!username) {
+          console.log("Session invalid: Username not found");
+          logout();
+      }
+  }
+
+  // Wait until the DOM is fully loaded before running the code
+  document.addEventListener("DOMContentLoaded", function () {
+      // Start checking session every second
+      sessionCheckInterval = setInterval(checkSession, 1000);
+
+      // Retrieve stored data from localStorage or sessionStorage
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      const username = localStorage.getItem("username") || sessionStorage.getItem("username");
+      const userId = localStorage.getItem("userId") || sessionStorage.getItem("userId");
+      const roles = localStorage.getItem("roles") || sessionStorage.getItem("roles");
+
+      // Initial session check
+      if (!username) {
+          logout();
+          return;
+      }
+
+      // Store retrieved data in variables
+      let userToken = token;
+      let userUsername = username;
+      let userUserId = userId;
+      let userRoles = roles;
+
+      // Display user details on the page if the user is logged in
+      const userDetailsElement = document.getElementById("userDetails");
+      if (userDetailsElement) {
+          if (userToken && userUsername && userUserId) {
+
+              userDetailsElement.textContent = `ATHLETE - ${userUsername}`;
+          } else {
+              userDetailsElement.textContent = "No user details found. Please log in again.";
+              logout();
+              return;
+          }
+      } else {
+          console.warn("User details element not found");
+      }
+
+      // Log the retrieved details for debugging purposes
+      console.log("User Token:", userToken);
+      console.log("Username:", userUsername);
+      console.log("User ID:", userUserId);
+      console.log("Roles:", userRoles);
+
+      // If user is logged in, fetch the athlete ID
+      if (userUserId) {
+          fetchAthleteId(userUserId);
+      } else {
+          logout();
+          return;
+      }
+
+      // Fetch Athlete ID from the API
+      async function fetchAthleteId(userId) {
+          if (!userId) {
+              displayError("User ID not found.");
+              logout();
+              return;
+          }
+
+          try {
+              const response = await fetch(`http://localhost:8080/api/athletes/getIdByUserId/${userId}`, {
+                  method: "GET",
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${userToken}`,
+                  },
+              });
+
+              if (response.ok) {
+                  const fetchedAthleteId = await response.text();
+
+                  if (fetchedAthleteId) {
+                      console.log("Fetched Athlete ID:", fetchedAthleteId);
+                      athletesid = fetchedAthleteId;
+                      localStorage.setItem("athleteId", fetchedAthleteId);
+                      fetchRegisteredEvents(fetchedAthleteId);
+                  } else {
+                      logout();
+                  }
+              } else {
+                  logout();
+              }
+          } catch (error) {
+              console.error("Error fetching Athlete ID:", error);
+              logout();
+          }
+      }
+
+      // Fetch Registered Events for the athlete
+      async function fetchRegisteredEvents(athleteId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/events/athlete/${athleteId}/registered`);
+        if (!response.ok) throw new Error("Failed to fetch events");
+
+        const events = await response.json();
+        const eventsContainer = document.getElementById("eventsContainer");
+
+        if (!eventsContainer) {
+            console.warn("Events container not found");
+            return;
+        }
+
+        eventsContainer.innerHTML = ""; // Clear previous content
+
+        const currentDate = new Date();
+
+        // Filter events: current day, future events, and past 2 days
+        const filteredEvents = events.filter(event => {
+            const eventDate = new Date(event.eventDate); // Assuming event.eventDate is in YYYY-MM-DD format
+            const twoDaysAgo = new Date(currentDate);
+            twoDaysAgo.setDate(currentDate.getDate() - 2);
+
+            return (
+                eventDate.toDateString() === currentDate.toDateString() || // Same as today
+                eventDate > currentDate || // Future events
+                (eventDate >= twoDaysAgo && eventDate < currentDate) // Within two days before today
+            );
+        });
+
+        if (filteredEvents.length > 0) {
+            filteredEvents.forEach(event => {
+                const eventCard = document.createElement("div");
+                eventCard.className = "event-card";
+                eventCard.innerHTML = `
+                    <img src="https://th.bing.com/th?id=OIP.hxXJSe481Ek1gW43OG3V6QHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2" alt="${event.eventTitle}" class="event-image">
+                    <div class="event-details">
+                        <h3>${event.eventTitle}</h3>
+                        <p>${event.eventDate} | ${event.eventTime}</p>
+                        <p>${event.eventLocation}</p>
+                        <br>
+                        <br>
+                        <a href="#" class="check-status-btn" onclick="checkEventStatus(${event.eventId}, event)">Check Status</a>
+                    </div>
+                `;
+                eventsContainer.appendChild(eventCard);
+            });
+        } else {
+            // Display centered message when no events match criteria
+            const noEventsMessage = document.createElement("h1");
+            noEventsMessage.className = "no-events-message";
+            noEventsMessage.textContent = "You have not yet registered for any events.";
+            noEventsMessage.style.textAlign = "center"; // Center text horizontally
+            noEventsMessage.style.marginTop = "20%";   // Adjust to center vertically (optional, based on design)
+            eventsContainer.appendChild(noEventsMessage);
+        }
+    } catch (error) {
+        const noEventsMessage = document.createElement("h1");
+            noEventsMessage.className = "no-events-message";
+            noEventsMessage.textContent = "You have not yet registered for any events.";
+            noEventsMessage.style.textAlign = "center"; // Center text horizontally
+            noEventsMessage.style.marginTop = "20%";  
+            noEventsMessage.style.marginLeft = "120%";   // Adjust to center vertically (optional, based on design)
+            // Adjust to center vertically (optional, based on design)
+            eventsContainer.appendChild(noEventsMessage);
+    }
+}
+
+
+      // Check the status of an event
+      window.checkEventStatus = function(eventId, event) {
+          event.preventDefault();
+          const athleteId = localStorage.getItem("athleteId");
+
+          if (!athleteId) {
+              displayError("Athlete ID not found.");
+              return;
+          }
+
+          fetch(`http://localhost:8080/api/events/${eventId}/athlete/${athleteId}/status`)
+              .then(response => response.text())
+              .then(status => alert(`Status: ${status}`))
+              .catch(error => {
+                  console.error("Error fetching event status:", error);
+                  displayError("Failed to fetch event status. Please try again.");
+              });
+      };
+
+      // Register link event listener
+      const registerLink = document.querySelector('a[href="#register"]');
+      if (registerLink) {
+          registerLink.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              if (!athletesid) {
+                  console.error('Athlete ID is not defined or null.');
+                  return;
+              }
+
+              try {
+                  localStorage.setItem("athleteId", btoa(athletesid.toString()));
+                  window.location.href = "athleteeventregistration.html";
+              } catch (error) {
+                  console.error('Error encoding athleteId:', error);
+              }
+          });
+      }
+
+      // Profiles link event listener
+      const profilesLink = document.querySelector('a[href="#profiles"]');
+      if (profilesLink) {
+          profilesLink.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              if (!athletesid) {
+                  console.error('Athlete ID is not defined or null.');
+                  return;
+              }
+
+              try {
+                  localStorage.setItem("athleteId", btoa(athletesid.toString()));
+                  window.location.href = "athleteprofile.html";
+              } catch (error) {
+                  console.error('Error encoding athleteId:', error);
+              }
+          });
+      }
+
+      // Display an error message
+      function displayError(message) {
+          const errorContainer = document.getElementById("errorContainer");
+          if (errorContainer) {
+              errorContainer.textContent = message;
+              errorContainer.style.display = "block";
+          } else {
+              alert(message);
+          }
+      }
+  });
+
+  // Clean up on page unload
+  window.addEventListener('unload', function() {
+      if (sessionCheckInterval) {
+          clearInterval(sessionCheckInterval);
+      }
+  });
+</script>
+</body>
+</html>
