@@ -1,4 +1,5 @@
 Sports Performance Monitoring
+
 This Spring Boot application provides a platform for athletes, coaches, and administrators to manage sports performance and event participation.
 
 Features:
